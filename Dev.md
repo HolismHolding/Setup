@@ -71,13 +71,6 @@
 
 ---
 
-- Confiture the keyboard
-    - Settings
-      - Universal access
-      - Typing
-      - Repeat keys
-      - Delay = almost 10%
-      - Speed = almost 60%
 - Connect to WiFi
 - Install VPN and connect to it (in case of doubt, ASK)
 - Update Ubuntu (using VPN)

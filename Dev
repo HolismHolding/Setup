@@ -36,6 +36,31 @@ function Divide()
     echo ""
 }
 
+function InstallVpn()
+{
+    if ( which google-chrome 1>/dev/null ); then
+        Success "OpenConnect;$Check"
+    else
+        Info "Installing openconnect ..."
+
+        sudo apt install openconnect
+
+        Success "Installed openconnect"
+    fi
+
+    if [ ! -f /Vpn ]; then
+        Divide
+        Info Please enter your VPN username
+        Divide
+        read $Username
+        Divide
+        Info Please enter your VPN password
+        Divide
+        read $Password
+        printf "'$Username\n$Password'" | sudo openconnect vpn-server-address
+    fi
+}
+
 function InstallChrome()
 {
     if ( which google-chrome 1>/dev/null ); then
@@ -317,14 +342,6 @@ function RegisterHolismCommands()
     sudo echo 'PATH="${PATH}:/HolismHolding/Infra/Commands"' >> /etc/bash.bashrc
 
     Success "Registered Holism Commands"
-}
-
-function InstallVpn()
-{
-    Info "Creating VPN ..."
-    # sudo apt install openconnect
-    # micro /Vpn
-    # printf 'username\npassword' | sudo openconnect vpn-server-address
 }
 
 function SetDockerPermissions()
