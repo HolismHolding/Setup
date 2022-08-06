@@ -357,6 +357,16 @@ function DownloadVsCodeExtensions()
     fi
 }
 
+function ConfigureKeyboard()
+{
+    Info "Configring keyboard ..."
+
+    gsettings set org.gnome.desktop.peripherals.keyboard repeat-interval 40
+    gsettings set org.gnome.desktop.peripherals.keyboard delay 250
+
+    Success "Configured the keyboard"
+}
+
 Divide
 Info "Holism Installation"
 Divide
@@ -377,6 +387,8 @@ InstallRename
 InstallWireshark
 DownloadVsCodeExtensions
 RegisterHolismCommands
+
+ConfigureKeyboard
 
 Divide
 

