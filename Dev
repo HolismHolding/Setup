@@ -379,6 +379,14 @@ function DownloadVsCodeExtensions()
     fi
 }
 
+function GiveAccessToRoot()
+{
+    sudo mkdir -p /root/.ssh
+    sudo ln -f -s ~/.ssh/id_ed25519 /root/.ssh/id_ed25519
+    sudo ln -f -s ~/.ssh/id_ed25519.pub /root/.ssh/id_ed25519.pub
+    sudo ln -f -s ~/.ssh/known_hosts /root/.ssh/known_hosts
+}
+
 function ConfigureKeyboard()
 {
     Info "Configring keyboard ..."
@@ -387,6 +395,11 @@ function ConfigureKeyboard()
     gsettings set org.gnome.desktop.peripherals.keyboard delay 250
 
     Success "Configured the keyboard"
+}
+
+function SetFavoriteApps()
+{
+    gsettings set org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop', 'google-chrome.desktop', 'code.desktop', 'org.gnome.Terminal.desktop', 'org.gnome.gedit.desktop']"
 }
 
 Divide
@@ -411,7 +424,9 @@ InstallWireshark
 DownloadVsCodeExtensions
 RegisterHolismCommands
 
+GiveAccessToRoot
 ConfigureKeyboard
+SetFavoriteApps
 
 Divide
 

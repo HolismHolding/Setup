@@ -112,7 +112,7 @@
   - Restore `.ssh` directory, or
   - Generate keys and add your public key to GitHub 
     - Open terminal 
-    - ssh-keygen -t ed25519 -C "your-email" 
+    - `ssh-keygen -t ed25519 -C "your-email"`
     - Enter 3 times 
       - Accept default filename 
       - Empty password 
@@ -135,20 +135,13 @@
     - `docker login ghcr.io`
     - username
     - package reading personal access token
-- Configuration
-  - Add these to favorites, in order
-    - Files
-    - Chrome
-    - VS Code
-    - Terminal
-    - Editor
 - Chrome
   - Make default
     - On the first run, it asks for it
   - Do not send crash reports
   - Sign in
   - Extensions
-    - JSONView
+    - JSONViewer
     - Grammarly
     - React Developer Tools
 - VS Code
@@ -157,11 +150,6 @@
     - Files => Preferences => Settings
     - Search for “word wrap”
     - Select “on” from the dropdown
-- Root
-  - `sudo mkdir -p /root/.ssh`
-  - `sudo ln -f -s ~/.ssh/id_ed25519 /root/.ssh/id_ed25519`
-  - `sudo ln -f -s ~/.ssh/id_ed25519.pub /root/.ssh/id_ed25519.pub`
-  - `sudo ln -f -s ~/.ssh/known_hosts /root/.ssh/known_hosts`
 
 * Development
   - For each company (top-level URL path segment in GitHub for example), create a directory in / (root). For example,  
