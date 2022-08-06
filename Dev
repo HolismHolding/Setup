@@ -52,12 +52,17 @@ function InstallVpn()
         Divide
         Info Please enter your VPN username
         Divide
-        read $Username
+        read Username
         Divide
         Info Please enter your VPN password
         Divide
-        read $Password
-        printf "'$Username\n$Password'" | sudo openconnect vpn-server-address
+        read Password
+        Divide
+        Info Please give me the VPN server address
+        Divide
+        read Server
+        echo "printf '$Username\n$Password' | sudo openconnect $Server" | sudo tee -a /Vpn > /dev/null
+        sudo chmod 777 /Vpn
     fi
 }
 
@@ -388,6 +393,7 @@ Divide
 Info "Holism Installation"
 Divide
 
+InstallVpn
 InstallChrome
 InstallVsCode
 InstallGit

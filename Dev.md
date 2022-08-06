@@ -72,7 +72,6 @@
 ---
 
 - Connect to WiFi
-- Install VPN and connect to it (in case of doubt, ASK)
 - Update Ubuntu (using VPN)
   - Settings
   - Software Update
