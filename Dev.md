@@ -1,5 +1,7 @@
 # This is an example of the development environment setup. This document is valid only for a company or a holding. **This document is not for EVERYONE**.
 
+## TODO: Use preseeding
+
 ---
 
 <details>
