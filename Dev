@@ -402,6 +402,11 @@ function SetFavoriteApps()
     gsettings set org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop', 'google-chrome.desktop', 'code.desktop', 'org.gnome.Terminal.desktop', 'org.gnome.gedit.desktop']"
 }
 
+function SetTerminalToOpenMaximized()
+{
+
+}
+
 Divide
 Info "Holism Installation"
 Divide
@@ -427,6 +432,7 @@ RegisterHolismCommands
 GiveAccessToRoot
 ConfigureKeyboard
 SetFavoriteApps
+SetTerminalToOpenMaximized
 
 Divide
 
