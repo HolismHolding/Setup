@@ -404,7 +404,7 @@ function SetFavoriteApps()
 
 function SetTerminalToOpenMaximized()
 {
-
+    # https://ncona.com/2019/11/configuring-gnome-terminal-programmatically/
 }
 
 Divide
