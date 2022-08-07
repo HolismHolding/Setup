@@ -334,7 +334,7 @@ function InstallBaobab()
     Success "Installed baobab"
 }
 
-function RegisterHolismCommandsAndScripts()
+function RegisterHolismCommands()
 {
     if ( grep -nr HolismHolding /etc/bash.bashrc 1>/dev/null ); then
         Success "Holism commands;$Check"
@@ -344,7 +344,7 @@ function RegisterHolismCommandsAndScripts()
     Info "Registering Holism Commands ..."
 
     sudo chmod 777 /etc/bash.bashrc
-    sudo echo 'PATH="${PATH}:/HolismHolding/Infra/Commands:/HolismHolding/Infra/Scripts"' >> /etc/bash.bashrc
+    sudo echo 'PATH="${PATH}:/HolismHolding/Infra/Commands:/HolismHolding/Commands"' >> /etc/bash.bashrc
 
     Success "Registered Holism Commands"
 }
@@ -422,7 +422,7 @@ InstallJq
 InstallRename
 InstallWireshark
 DownloadVsCodeExtensions
-RegisterHolismCommandsAndScripts
+RegisterHolismCommands
 
 GiveAccessToRoot
 ConfigureKeyboard
