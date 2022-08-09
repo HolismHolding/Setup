@@ -77,8 +77,8 @@ function InstallChrome()
 
     sudo apt-get update 
     #sudo apt upgrade
-    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb
-    sudo dpkg -i google-chrome-stable_current_amd64.deb
+    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O chrome
+    sudo dpkg -i chrome
 
     Success "Installed Google Chrome"
 }
@@ -216,8 +216,8 @@ function InstallMkcert()
     Info "Installing Mkcert ..."
 
     sudo apt install libnss3-tools
-    wget https://github.com/FiloSottile/mkcert/releases/download/v1.4.3/mkcert-v1.4.3-linux-amd64
-    sudo cp mkcert-v1.4.3-linux-amd64 /usr/local/bin/mkcert
+    wget https://github.com/FiloSottile/mkcert/releases/download/v1.4.3/mkcert-v1.4.3-linux-amd64 -O mkcert
+    sudo cp mkcert /usr/local/bin/mkcert
     sudo chmod +x /usr/local/bin/mkcert
     mkcert -install
 
@@ -236,10 +236,6 @@ function InstallMicro()
     sudo chmod -R 777 /usr/local/bin
     cd /usr/local/bin
     sudo curl https://getmic.ro | bash
-
-    # or
-    # wget https://github.com/zyedidia/micro/releases/download/v2.0.10/micro-2.0.10-amd64.deb
-    # sudo apt install ./micro-2.0.10-amd64.deb
 
     Success "Installed Micro"
 }
@@ -267,10 +263,10 @@ function InstallBeyondCompare()
 
     Info "Installing Beyond Compare ..."
 
-    wget https://www.scootersoftware.com/bcompare-4.4.2.26348_amd64.deb
+    wget https://www.scootersoftware.com/bcompare-4.4.2.26348_amd64.deb -O beyondCompare
     sudo apt-get update
     sudo apt-get install gdebi-core -y
-    sudo gdebi -n bcompare-4.4.2.26348_amd64.deb
+    sudo gdebi -n beyondCompare
 
     Success "Installed Beyond Compare"
 }
@@ -371,8 +367,8 @@ function DownloadVsCodeExtensions()
         Info "Downloading VS Code extensions ... "
 
         sudo mkdir -p /HolismHolding/Extensions
-        wget https://holism.blob.core.windows.net/downloads/csharp.vsix
-        mv csharp.vsix /HolismHolding/Extensions/CSharp.vsix
+        wget https://holism.blob.core.windows.net/downloads/csharp.vsix -O CSharp.vsix
+        mv CSharp.vsix /HolismHolding/Extensions/CSharp.vsix
 
         Success "Downloaded VS Code extensions "
 
@@ -447,6 +443,10 @@ function PullImages()
 }
 
 sudo echo ""
+if [ $PWD != /Temp ]; then
+    Error "You are not inside the /Temp directory. Go there and run Install again."
+    exit;
+fi
 Divide
 Info "Holism Installation"
 Divide
