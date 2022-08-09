@@ -407,6 +407,29 @@ function SetTerminalToOpenMaximized()
     # https://ncona.com/2019/11/configuring-gnome-terminal-programmatically/
 }
 
+function CloneInfra()
+{
+    if [ ! -d /HolismHolding ]; then
+        Clone HolismHolding
+    fi
+    if [ ! -d /HolismApi ]; then
+        Clone HolismApi
+    fi
+    if [ ! -d /HolismPanel ]; then
+        Clone HolismPanel
+    fi
+    if [ ! -d /HolismSite ]; then
+        Clone HolismSite
+    fi
+}
+
+function PullImages()
+{
+    docker pull holism/api
+    docker pull holism/panel
+    docker pull holism/site
+}
+
 Divide
 Info "Holism Installation"
 Divide
@@ -433,6 +456,9 @@ GiveAccessToRoot
 ConfigureKeyboard
 SetFavoriteApps
 SetTerminalToOpenMaximized
+
+CloneInfra
+PullImages
 
 Divide
 
