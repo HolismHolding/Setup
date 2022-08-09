@@ -405,6 +405,7 @@ function SetFavoriteApps()
 function SetTerminalToOpenMaximized()
 {
     # https://ncona.com/2019/11/configuring-gnome-terminal-programmatically/
+    Info "Setting terminal to be opened maximized"
 }
 
 function CloneInfra()
@@ -425,9 +426,24 @@ function CloneInfra()
 
 function PullImages()
 {
-    docker pull holism/api
-    docker pull holism/panel
-    docker pull holism/site
+    if ( docker image ls | grep api 1>/dev/null ); then
+        Success "holism/api;$Check"
+    else
+        Info "Getting holism/api"
+        docker pull holism/api
+    fi
+    if ( docker image ls | grep panel 1>/dev/null ); then
+        Success "holism/panel;$Check"
+    else
+        Info "Getting holism/panel"
+        docker pull holism/panel
+    fi
+    if ( docker image ls | grep site 1>/dev/null ); then
+        Success "holism/site;$Check"
+    else
+        Info "Getting holism/site"
+        docker pull holism/site
+    fi
 }
 
 Divide
