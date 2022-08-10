@@ -42,7 +42,8 @@
     - Choose Tehran
     - Press **Continue**
   - Computer name
-    - YourNamePc or YourNameLaptop
+    - pc or laptop
+      - Prompt would become user@pc or user@laptop
     - Choose a simple password (you will be asked for it frequently)
       - Preferably choose 100 as your password
     - **DO NOT** choose auto-login
