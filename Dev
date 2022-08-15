@@ -364,13 +364,29 @@ function DownloadVsCodeExtensions()
         Success "CSharp extension;$Check"
     else
 
-        Info "Downloading VS Code extensions ... "
+        Info "Downloading C# VS Code extension ... "
 
         sudo mkdir -p /HolismHolding/Extensions
+
         wget https://holism.blob.core.windows.net/downloads/csharp.vsix -O CSharp.vsix
         sudo mv CSharp.vsix /HolismHolding/Extensions/CSharp.vsix
 
-        Success "Downloaded VS Code extensions "
+        Success "Downloaded C# VS Code extension "
+
+    fi
+
+    if [ -f /HolismHolding/Extensions/Python.vsix ]; then
+        Success "Python extension;$Check"
+    else
+
+        Info "Downloading Python VS Code extension ... "
+
+        sudo mkdir -p /HolismHolding/Extensions
+
+        wget https://holism.blob.core.windows.net/downloads/python.vsix -O Python.vsix
+        sudo mv Python.vsix /HolismHolding/Extensions/Python.vsix
+
+        Success "Downloaded Python VS Code extension "
 
     fi
 }
