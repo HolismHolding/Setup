@@ -2,17 +2,6 @@
 
 ## TODO: Use preseeding
 
----
-
-<details>
-  <summary>BEFORE INSTALLATION</summary>
-  
-  - If this is not your first installation, make sure to backup ~/.ssh folder to be restored later. You can zip it and upload it to your google drive storage.
-  
-</details>
-
----
-
 <details>
   <summary>OS</summary>
   
