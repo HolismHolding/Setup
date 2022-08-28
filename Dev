@@ -414,9 +414,12 @@ function SetFavoriteApps()
     gsettings set org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop', 'google-chrome.desktop', 'code.desktop', 'org.gnome.Terminal.desktop', 'org.gnome.gedit.desktop']"
 }
 
-function SetTerminalToOpenMaximized()
+function SetAppsToOpenMaximized()
 {
     # https://ncona.com/2019/11/configuring-gnome-terminal-programmatically/
+    # terminal + VS Code + Chrome + Text Editor + System Monitor + Anydesk + Beyond Compare + ...
+
+    # VS Code => ~/.config/Code/User/settings.json
     Info "Setting terminal to be opened maximized"
 }
 
@@ -488,7 +491,7 @@ RegisterHolismCommands
 GiveAccessToRoot
 ConfigureKeyboard
 SetFavoriteApps
-SetTerminalToOpenMaximized
+SetAppsToOpenMaximized
 
 CloneInfra
 PullImages
