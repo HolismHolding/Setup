@@ -71,7 +71,7 @@
   - `sudo mkdir /Temp`
   - `sudo chmod 777 /Temp`
   - `cd /Temp`
-  - `wget yun.ir/s9oj9e -O Setup`
+  - `wget https://raw.githubusercontent.com/HolismHolding/Setup/main/Dev -O Setup`
   - `sudo chmod 777 Setup`
   - `sudo ./Setup`
 
