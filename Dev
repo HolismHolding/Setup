@@ -43,7 +43,7 @@ function InstallVpn()
     else
         Info "Installing openconnect ..."
 
-        sudo apt install openconnect
+        sudo apt install openconnect -y
 
         Success "Installed openconnect"
     fi
@@ -462,10 +462,7 @@ function PullImages()
 }
 
 sudo echo ""
-if [ $PWD != /Temp ]; then
-    Error "You are not inside the /Temp directory. Go there and run Install again."
-    exit;
-fi
+cd /Temp
 Divide
 Info "Holism Installation"
 Divide
