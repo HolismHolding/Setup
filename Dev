@@ -416,11 +416,16 @@ function SetFavoriteApps()
 
 function SetAppsToOpenMaximized()
 {
-    # https://ncona.com/2019/11/configuring-gnome-terminal-programmatically/
-    # terminal + VS Code + Chrome + Text Editor + System Monitor + Anydesk + Beyond Compare + ...
+    if ( which devilspie2 1>/dev/null ); then
+        Success "devilspie2;$Check"
+        return
+    fi
 
-    # VS Code => ~/.config/Code/User/settings.json
     Info "Setting terminal to be opened maximized"
+
+    sudo apt install devilspie2 -y
+
+    
 }
 
 function CloneInfra()
