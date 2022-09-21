@@ -435,6 +435,8 @@ function SetAppsToOpenMaximized()
         mkdir ~/.config/autostart
     fi
 
+    wget https://raw.githubusercontent.com/HolismHolding/Setup/main/Autostart -O ~/.config/autostart/devilspie2.desktop
+
     Success "Configured apps to be opened maximized"
 }
 
