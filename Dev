@@ -421,11 +421,21 @@ function SetAppsToOpenMaximized()
         return
     fi
 
-    Info "Setting terminal to be opened maximized"
+    Info "Configuring apps to be opened maximized ..."
 
     sudo apt install devilspie2 -y
 
-    
+    if [ ! -d ~/.config/devilspie2 ]; then
+        mkdir ~/.config/devilspie2
+    fi
+
+    wget https://raw.githubusercontent.com/HolismHolding/Setup/main/Maximize -O ~/.config/devilspie2/maximize.lua
+
+    if [ ! -d ~/.config/autostart ]; then
+        mkdir ~/.config/autostart
+    fi
+
+    Success "Configured apps to be opened maximized"
 }
 
 function CloneInfra()
