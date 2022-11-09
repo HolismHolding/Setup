@@ -30,24 +30,16 @@
   - Where are you?
     - Choose Tehran
     - Press **Continue**
-  - Computer name
-    - pc or laptop
-      - Prompt would become user@pc or user@laptop
-    - Choose a simple password (you will be asked for it frequently)
-      - Preferably choose 100 as your password
-    - **DO NOT** choose auto-login
-      - If you choose auto-login, you will encouner *keyring* later. To disable auto-login later:
-        - Settings
-        - User
-        - Unlock
-        - disable Automatic Login
-  - **DO NOT** set up **Livepatch**
-    - Hit **Next**
+  - Computer name = local
+  - User name = user
+  - Set password to 100 (you will be asked for it frequently)
+  - **DO NOT** choose *Log in automatically*
+  - CHOOSE Require my password to login
+  - Wait for installation
   - **DO NOT** help Ubuntu
     - Select **No, don't send system info**
-  - Privacy (Location Services)
-    - Up to you
-  - Remove everything from the left bar
+  - Privacy off
+  - Click Done (don't worry about progress)
   - **DO NOT** install any other languages
     - Just English & Persian
     - **DO NOT** change defaults
@@ -56,8 +48,6 @@
     - Region & Language
     - Format
     - English (United States)
-  - todo: DO NOT DO THIS YET
-    - [Enable root](https://askubuntu.com/questions/1192471/login-as-root-on-ubuntu-desktop) and login as root always (This decision is explained [here](https://nefcanto.ir/dev-circle/philosophy/why-root))
   
 </details>
 
