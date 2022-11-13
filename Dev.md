@@ -54,9 +54,6 @@
 ---
 
 - Connect to WiFi
-- Update Ubuntu (using VPN)
-  - Settings
-  - Software Update
 - Install software using script
   - `sudo mkdir /Temp`
   - `sudo chmod 777 /Temp`
@@ -68,6 +65,9 @@
 - **DO NOT** install any other extension on VS Code
   - In case you need something, talk to the team
 
+- Update Ubuntu (using VPN)
+  - Settings
+  - Software Update
 
 - Wireshark
   - `sudo add-apt-repository universe`
