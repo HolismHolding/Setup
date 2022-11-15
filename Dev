@@ -405,6 +405,15 @@ function GiveAccessToRoot()
     fi
 }
 
+function TestGitHubAccess()
+{
+    if [[ $(ssh -T git@github.com) == *"You've successfully authenticated"* ]]; then
+        Success "GitHub SSH;$Check"
+    else
+        Error "GitHub SSH not valid"
+    fi
+}
+
 function ConfigureKeyboard()
 {
     Info "Configring keyboard ..."
@@ -509,6 +518,7 @@ DownloadVsCodeExtensions
 RegisterHolismCommands
 
 GiveAccessToRoot
+TestGitHubAccess
 ConfigureKeyboard
 SetFavoriteApps
 SetAppsToOpenMaximized
