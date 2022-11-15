@@ -521,7 +521,7 @@ DownloadVsCodeExtensions
 RegisterHolismCommands
 
 GiveAccessToRoot
-TestGitHubAccess
+# TestGitHubAccess
 ConfigureKeyboard
 SetFavoriteApps
 SetAppsToOpenMaximized
