@@ -275,6 +275,11 @@ function InstallBeyondCompare()
     Success "Installed Beyond Compare"
 }
 
+function InstallSshServer()
+{
+    # sudo apt-get install openssh-server
+}
+
 function InstallWireshark()
 {
     if ( which wireshark 1>/dev/null ); then
