@@ -277,7 +277,16 @@ function InstallBeyondCompare()
 
 function InstallSshServer()
 {
-    # sudo apt-get install openssh-server
+    if ( which sshd 1>/dev/null ); then
+        Success "SSH Server;$Check"
+        return;
+    fi
+
+    Info "Installing SSH Server ..."
+
+    sudo apt install openssh-server -y
+
+    Success "Installed SSH Server"
 }
 
 function InstallWireshark()
@@ -519,6 +528,7 @@ InstallMkcert
 InstallMicro
 InstallTelnet
 InstallBeyondCompare
+InstallSshServer
 InstallJq
 InstallRename
 InstallWireshark
