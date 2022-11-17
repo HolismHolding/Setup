@@ -466,6 +466,7 @@ function SetLocaleToEnglishUs()
     Info "Setting locale to US English ..."
 
     sudo update-locale LANG=en_US.UTF-8
+    gsettings set org.gnome.system.locale region 'en_US.UTF-8'
 
     Success "Set locale to US English"
 }
@@ -581,6 +582,7 @@ RegisterHolismCommands
 GiveAccessToRoot
 # TestGitHubAccess
 AddPersianInputSource
+SetLocaleToEnglishUs
 ConfigureKeyboard
 SetFavoriteApps
 SetAppsToOpenMaximized
