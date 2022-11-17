@@ -430,7 +430,7 @@ function TestGitHubAccess()
 
 function AddPersianInputSource()
 {
-    if [[ $( gsettings get org.gnome.desktop.input-sources sources | grep ir ) == 0 ]]; then
+    if [[ $( gsettings get org.gnome.desktop.input-sources sources | grep ir ) ]]; then
         Success "Persian;$Check"
         return;
     fi
@@ -440,6 +440,20 @@ function AddPersianInputSource()
     gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us'), ('xkb', 'ir')]"
 
     Success "Added Persian"
+}
+
+function SetLocaleToEnglishUs()
+{
+    if [[ $( locale | grep LANG=en_US.UTF-8 ) ]]; then
+        Success "US English locale;$Check"
+        return;
+    fi
+    
+    Info "Setting locale to US English ..."
+
+    sudo update-locale LANG=en_US.UTF-8
+
+    Success "Set locale to US English"
 }
 
 function ConfigureKeyboard()

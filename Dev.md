@@ -40,11 +40,6 @@
     - Select **No, don't send system info**
   - Privacy off
   - Click Done (don't worry about progress)
-  - Change culture
-    - Settings
-    - Region & Language
-    - Format
-    - English (United States)
   
 </details>
 
