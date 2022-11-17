@@ -38,7 +38,7 @@ function Divide()
 
 function InstallVpn()
 {
-    if ( which google-chrome 1>/dev/null ); then
+    if ( which openconnect 1>/dev/null ); then
         Success "OpenConnect;$Check"
     else
         Info "Installing openconnect ..."
