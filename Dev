@@ -428,6 +428,20 @@ function TestGitHubAccess()
     fi
 }
 
+function AddPersianInputSource()
+{
+    if [[ $( gsettings get org.gnome.desktop.input-sources sources | grep ir ) == 0 ]]; then
+        Success "Persian;$Check"
+        return;
+    fi
+
+    Info "Adding Persian ..."
+
+    gsettings set org.gnome.desktop.input-sources sources "[('xkb', 'us'), ('xkb', 'ir')]"
+
+    Success "Added Persian"
+}
+
 function ConfigureKeyboard()
 {
     Info "Configring keyboard ..."
@@ -537,6 +551,7 @@ RegisterHolismCommands
 
 GiveAccessToRoot
 # TestGitHubAccess
+AddPersianInputSource
 ConfigureKeyboard
 SetFavoriteApps
 SetAppsToOpenMaximized

@@ -34,15 +34,12 @@
   - User name = user
   - Set password to 100 (you will be asked for it frequently)
   - **DO NOT** choose *Log in automatically*
-  - CHOOSE Require my password to login
+  - **CHOOSE** Require my password to login
   - Wait for installation
   - **DO NOT** help Ubuntu
     - Select **No, don't send system info**
   - Privacy off
   - Click Done (don't worry about progress)
-  - **DO NOT** install any other languages
-    - Just English & Persian
-    - **DO NOT** change defaults
   - Change culture
     - Settings
     - Region & Language
