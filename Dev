@@ -329,9 +329,23 @@ function InstallRename()
 
     Info "Installing rename ..."
 
-    sudo apt install rename
+    sudo apt install rename -y
 
     Success "Installed rename"
+}
+
+function InstallParallel()
+{
+    if ( which parallel 1>/dev/null ); then
+        Success "Parallel;$Check"
+        return
+    fi
+
+    Info "Installing parallel ..."
+
+    sudo apt install parallel -y
+
+    Success "Installed parallel"
 }
 
 function InstallBaobab()
@@ -559,6 +573,7 @@ InstallBeyondCompare
 InstallSshServer
 InstallJq
 InstallRename
+InstallParallel
 InstallWireshark
 DownloadVsCodeExtensions
 RegisterHolismCommands
