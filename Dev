@@ -553,6 +553,18 @@ function PullImages()
         Info "Getting holism/site"
         docker pull holism/site
     fi
+    if ( docker image ls | grep mariadb 1>/dev/null ); then
+        Success "mariadb;$Check"
+    else
+        Info "Getting mariadb"
+        docker pull mariadb
+    fi
+    if ( docker image ls | grep adminer 1>/dev/null ); then
+        Success "adminer;$Check"
+    else
+        Info "Getting adminer"
+        docker pull adminer
+    fi
 }
 
 sudo echo ""
