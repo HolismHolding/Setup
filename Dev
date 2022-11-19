@@ -305,6 +305,21 @@ function InstallWireshark()
     Success "Installed Wireshark"
 }
 
+function InstallAdvancedRestClient()
+{
+    if ( which arc 1>/dev/null ); then
+        Success "Advanced Rest Client;$Check"
+        return;
+    fi
+
+    Info "Installing Advanced Rest Client ..."
+
+    sudo wget https://github.com/advanced-rest-client/arc-electron/releases/download/v17.0.9/arc-linux-17.0.9-amd64.deb -O arc
+    sudo apt install ./arc
+
+    Success "Installed Advanced Rest Client"
+}
+
 function InstallJq()
 {
     if ( which jq 1>/dev/null ); then
