@@ -502,6 +502,16 @@ function SetFavoriteApps()
     gsettings set org.gnome.shell favorite-apps "['org.gnome.Nautilus.desktop', 'google-chrome.desktop', 'code.desktop', 'org.gnome.Terminal.desktop', 'org.gnome.gedit.desktop']"
 }
 
+function SetChromeAsTheDefaultBrowser()
+{
+    Info "Setting Chrome as the default browser ..."
+
+    sudo update-alternatives --install /usr/bin/x-www-browser x-www-browser /usr/bin/google-chrome 500 1>/dev/null
+    sudo update-alternatives --set x-www-browser /usr/bin/google-chrome 1>/dev/null
+
+    Success "Set Chrome as the default browser"
+}
+
 function SetAppsToOpenMaximized()
 {
     if ( which devilspie2 1>/dev/null ); then
@@ -614,6 +624,7 @@ AddPersianInputSource
 SetLocaleToEnglishUs
 ConfigureKeyboard
 SetFavoriteApps
+SetChromeAsTheDefaultBrowser
 SetAppsToOpenMaximized
 
 CloneInfra

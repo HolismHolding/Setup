@@ -110,8 +110,6 @@
     - username
     - package reading personal access token
 - Chrome
-  - Make default
-    - On the first run, it asks for it
   - Do not send crash reports
   - Sign in
   - Extensions
