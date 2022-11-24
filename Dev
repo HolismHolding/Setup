@@ -591,6 +591,20 @@ function PullImages()
     fi
 }
 
+function SetProjectsOrganization()
+{
+    if [[ $(cat /etc/bash.bashrc | grep ProjectsOrganization ) ]]; then
+        Success "Projects Organization;$Check"
+        exit;
+    fi
+
+    Divide
+    Info Please enter your projects organization name
+    Divide
+    read ProjectsOrganization
+    sudo echo "ProjectsOrganization=$ProjectsOrganization" >> /etc/bash.bashrc
+}
+
 sudo echo ""
 cd /Temp
 Divide
@@ -629,6 +643,7 @@ SetAppsToOpenMaximized
 
 CloneInfra
 PullImages
+SetProjectsOrganization
 
 Divide
 
