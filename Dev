@@ -602,7 +602,7 @@ function SetProjectsOrganization()
     Info Please enter your projects organization name
     Divide
     read ProjectsOrganization
-    sudo echo "ProjectsOrganization=$ProjectsOrganization" >> /etc/bash.bashrc
+    sudo echo "export ProjectsOrganization=$ProjectsOrganization" >> /etc/bash.bashrc
 }
 
 sudo echo ""
