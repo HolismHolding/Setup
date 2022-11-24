@@ -116,6 +116,13 @@
     - JSONViewer
     - Grammarly
     - React Developer Tools
+  - Add breakpoints
+    - xs (360)
+    - sm (640)
+    - md (768)
+    - lg (1024)
+    - xl (1280)
+    - xxl (1536)
 - VS Code
   - Turn on sync (using GitHub)
   - Word wrap
