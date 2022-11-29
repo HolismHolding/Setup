@@ -386,7 +386,7 @@ function RegisterHolismCommands()
     Info "Registering Holism Commands ..."
 
     sudo chmod 777 /etc/bash.bashrc
-    sudo echo 'PATH="${PATH}:/HolismHolding/Infra/Commands:/HolismHolding/Commands"' >> /etc/bash.bashrc
+    sudo echo 'PATH="${PATH}:/HolismHolding/Commands"' >> /etc/bash.bashrc
 
     Success "Registered Holism Commands"
 }
