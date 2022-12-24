@@ -334,6 +334,21 @@ function InstallJq()
     Success "Installed jq"
 }
 
+function InstallProgress()
+{
+    if ( which progress 1>/dev/null ); then
+        Success "Progress;$Check"
+        return
+    fi
+
+    Info "Installing progress ..."
+
+    sudo apt-get update
+    sudo apt-get install progress -y
+
+    Success "Installed progress"
+}
+
 function InstallRename()
 {
     if ( which rename 1>/dev/null ); then
@@ -625,6 +640,7 @@ InstallTelnet
 InstallBeyondCompare
 InstallSshServer
 InstallJq
+InstallProgress
 InstallRename
 InstallParallel
 InstallWireshark
