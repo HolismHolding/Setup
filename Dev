@@ -373,6 +373,7 @@ function InstallParallel()
     Info "Installing parallel ..."
 
     sudo apt install parallel -y
+    ulimit -n `ulimit -Hn`
 
     Success "Installed parallel"
 }
