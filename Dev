@@ -644,6 +644,7 @@ InstallJq
 InstallProgress
 InstallRename
 InstallParallel
+InstallBaobab
 InstallWireshark
 InstallHttpie
 DownloadVsCodeExtensions
