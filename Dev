@@ -392,6 +392,18 @@ function InstallBaobab()
     Success "Installed baobab"
 }
 
+function RegisterDockerMirror()
+{
+    echo "{" > /etc/docker/daemon.json
+    echo "  \"registry-mirrors\": [\"https://docker.iranserver.com\"]" > /etc/docker/daemon.json
+    echo "}" > /etc/docker/daemon.json
+
+    systemctl daemon-reload
+    systemctl restart docker
+
+    # https://mirror.iranserver.com/docker/
+}
+
 function RegisterHolismCommands()
 {
     if ( grep -nr HolismHolding /etc/bash.bashrc 1>/dev/null ); then
@@ -648,6 +660,7 @@ InstallBaobab
 InstallWireshark
 InstallHttpie
 DownloadVsCodeExtensions
+RegisterDockerMirror
 RegisterHolismCommands
 
 GiveAccessToRoot
