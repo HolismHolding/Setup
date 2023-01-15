@@ -645,12 +645,12 @@ InstallVsCode
 InstallGit
 InstallDocker
 InstallDockerCompose
-InstallAnydesk
+# InstallAnydesk
 InstallNginx
 InstallMkcert
 InstallMicro
 InstallTelnet
-InstallBeyondCompare
+# InstallBeyondCompare
 InstallSshServer
 InstallJq
 InstallProgress
@@ -659,7 +659,7 @@ InstallParallel
 InstallBaobab
 InstallWireshark
 InstallHttpie
-DownloadVsCodeExtensions
+# DownloadVsCodeExtensions
 RegisterDockerMirror
 RegisterHolismCommands
 
