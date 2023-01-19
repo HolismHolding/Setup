@@ -659,7 +659,7 @@ InstallParallel
 InstallBaobab
 InstallWireshark
 InstallHttpie
-# DownloadVsCodeExtensions
+DownloadVsCodeExtensions
 RegisterDockerMirror
 RegisterHolismCommands
 
