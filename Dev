@@ -394,9 +394,9 @@ function InstallBaobab()
 
 function RegisterDockerMirror()
 {
-    sudo echo "{" > /etc/docker/daemon.json
-    sudo echo "  \"registry-mirrors\": [\"https://docker.iranserver.com\"]" >> /etc/docker/daemon.json
-    sudo echo "}" >> /etc/docker/daemon.json
+    sudo echo "{" 2>/dev/null > /etc/docker/daemon.json
+    sudo echo "  \"registry-mirrors\": [\"https://docker.iranserver.com\"]" 2>/dev/null >> /etc/docker/daemon.json
+    sudo echo "}" 2>/dev/null >> /etc/docker/daemon.json
 
     sudo systemctl daemon-reload
     sudo systemctl restart docker
