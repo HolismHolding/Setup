@@ -46,6 +46,7 @@
 ---
 
 - Connect to WiFi
+- Setup [shecan.ir](https://shecan.ir/tutorials/)
 - Install software using script
   - `sudo mkdir /Temp`
   - `sudo chmod 777 /Temp`
