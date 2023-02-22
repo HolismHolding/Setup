@@ -2,6 +2,8 @@
 
 ## TODO: Use preseeding
 
+---
+
 - Connect to WiFi
 - Setup [shecan.ir](https://shecan.ir/tutorials/)
 - Install software using script
