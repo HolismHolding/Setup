@@ -647,7 +647,7 @@ Divide
 Info "Holism Installation"
 Divide
 
-InstallVpn
+# InstallVpn
 InstallChrome
 InstallVsCode
 InstallGit
