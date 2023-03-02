@@ -299,6 +299,8 @@ function InstallSshServer()
 
 function InstallWireshark()
 {
+    # todo: unattended installation
+    # https://askubuntu.com/questions/1275842/install-wireshark-without-confirm
     if ( which wireshark 1>/dev/null ); then
         Success "Wireshark;$Check"
         return;
@@ -665,7 +667,7 @@ InstallProgress
 InstallRename
 InstallParallel
 InstallBaobab
-InstallWireshark
+#InstallWireshark
 InstallHttpie
 DownloadVsCodeExtensions
 RegisterDockerMirror
