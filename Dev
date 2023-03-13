@@ -586,6 +586,16 @@ function SetAppsToOpenMaximized()
     Success "Configured apps to be opened maximized"
 }
 
+function IncreaseLimits()
+{
+    Info "Increasing limits ..."
+
+    # sysctl fs.inotify
+    sudo sysctl fs.inotify.max_user_instances=8192 1>/dev/null
+    sudo sed -i 's/^.*DefaultLimitNOFILE=.*$/DefaultLimitNOFILE=65536/g' /etc/systemd/system.conf 
+    sudo sed -i 's/^.*DefaultLimitNOFILE=.*$/DefaultLimitNOFILE=65536/g' /etc/systemd/user.conf 
+}
+
 function CloneInfra()
 {
     if [ ! -d /HolismHolding ]; then
@@ -689,6 +699,7 @@ SetFavoriteApps
 SetChromeAsTheDefaultBrowser
 DisableWayland
 SetAppsToOpenMaximized
+IncreaseLimits
 
 CloneInfra
 PullImages
