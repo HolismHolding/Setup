@@ -455,20 +455,20 @@ function DownloadVsCodeExtensions()
 
     fi
 
-    if [ -f /HolismHolding/Extensions/Python.vsix ]; then
-        Success "Python extension;$Check"
-    else
+    # if [ -f /HolismHolding/Extensions/Python.vsix ]; then
+    #     Success "Python extension;$Check"
+    # else
 
-        Info "Downloading Python VS Code extension ... "
+    #     Info "Downloading Python VS Code extension ... "
 
-        sudo mkdir -p /HolismHolding/Extensions
+    #     sudo mkdir -p /HolismHolding/Extensions
 
-        wget https://holism.blob.core.windows.net/downloads/python.vsix -O Python.vsix
-        sudo mv Python.vsix /HolismHolding/Extensions/Python.vsix
+    #     wget https://holism.blob.core.windows.net/downloads/python.vsix -O Python.vsix
+    #     sudo mv Python.vsix /HolismHolding/Extensions/Python.vsix
 
-        Success "Downloaded Python VS Code extension "
+    #     Success "Downloaded Python VS Code extension "
 
-    fi
+    # fi
 }
 
 function GiveAccessToRoot()
