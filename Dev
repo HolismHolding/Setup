@@ -398,6 +398,20 @@ function InstallBaobab()
     Success "Installed baobab"
 }
 
+function InstallDconfEditor()
+{
+    if ( which dconf-editor 1>/dev/null ); then
+        Success "DconfEditor;$Check"
+        return
+    fi
+
+    Info "Installing dconf-editor ..."
+
+    sudo apt-get install -y dconf-editor
+
+    Success "Installed dconf-editor"
+}
+
 function RegisterDockerMirror()
 {
     sudo echo "{" 2>/dev/null > /etc/docker/daemon.json
@@ -660,6 +674,14 @@ function SetProjectsOrganization()
     sudo echo "export ProjectsOrganization=$ProjectsOrganization" >> /etc/bash.bashrc
 }
 
+function PreventDimmingAndSleeping()
+{
+    Info "Setting the power saving options"
+    gsettings set org.gnome.settings-daemon.plugins.power ambient-enabled false
+    gsettings set org.gnome.settings-daemon.plugins.power idle-dim false
+    gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout 0
+}
+
 sudo echo ""
 cd /Temp
 Divide
@@ -684,6 +706,7 @@ InstallProgress
 InstallRename
 InstallParallel
 InstallBaobab
+InstallDconfEditor
 #InstallWireshark
 InstallHttpie
 DownloadVsCodeExtensions
@@ -700,6 +723,7 @@ SetChromeAsTheDefaultBrowser
 DisableWayland
 SetAppsToOpenMaximized
 IncreaseLimits
+PreventDimmingAndSleeping
 
 CloneInfra
 PullImages
