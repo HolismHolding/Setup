@@ -699,7 +699,7 @@ InstallNginx
 InstallMkcert
 InstallMicro
 InstallTelnet
-# InstallBeyondCompare
+InstallBeyondCompare
 InstallSshServer
 InstallJq
 InstallProgress
