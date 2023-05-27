@@ -272,9 +272,9 @@ function InstallBeyondCompare()
 
     Info "Installing Beyond Compare ..."
 
-    wget https://www.scootersoftware.com/bcompare-4.4.6.27483_amd64.deb -O BeyondCompare
+    wget https://www.scootersoftware.com/files/bcompare-4.4.6.27483_amd64.deb
     sudo apt update
-    sudo apt install ./BeyondCompare
+    sudo apt install ./bcompare-4.4.6.27483_amd64.deb
 
     Success "Installed Beyond Compare"
 }
