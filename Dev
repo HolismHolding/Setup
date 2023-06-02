@@ -346,6 +346,27 @@ function InstallHttpie()
     Success "Installed HTTPie"
 }
 
+function InstallPip()
+{
+    if ( which pip 1>/dev/null ); then
+        Success "pip;$Check"
+        return;
+    fi
+
+    Info "Installing pip ..."
+
+    sudo apt install python3-pip -y
+
+    Success "Installed pip"
+}
+
+function InstallEsprima()
+{
+    pip install esprima 1>/dev/null
+
+    Success "esprima; $Check"
+}
+
 function InstallJq()
 {
     if ( which jq 1>/dev/null ); then
@@ -731,6 +752,8 @@ InstallDconfEditor
 InstallBashCompletion
 #InstallWireshark
 InstallHttpie
+InstallPip
+InstallEsprima
 DownloadVsCodeExtensions
 RegisterDockerMirror
 RegisterHolismCommands
@@ -742,6 +765,19 @@ SetLocaleToEnglishUs
 ConfigureKeyboard
 SetFavoriteApps
 SetChromeAsTheDefaultBrowser
+InstallHttpie
+InstallPip
+DownloadVsCodeExtensions
+RegisterDockerMirror
+RegisterHolismCommands
+
+GiveAccessToRoot
+# TestGitHubAccess
+AddPersianInputSource
+SetLocaleToEnglishUs
+ConfigureKeyboard
+SetFavoriteApps
+
 DisableWayland
 SetAppsToOpenMaximized
 IncreaseLimits
