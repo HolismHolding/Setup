@@ -343,6 +343,8 @@ function InstallHttpie()
 
     sudo apt install httpie -y
 
+    sudo apt update && sudo apt upgrade httpie
+
     Success "Installed HTTPie"
 }
 
