@@ -200,6 +200,21 @@ function InstallAnydesk()
     Success "Installed AnyDesk"
 }
 
+function InstallScreenRecorder()
+{
+   if ( which simplescreenrecorder 1>/dev/null ); then
+        Success "simplescreenrecorder;$Check"
+        return
+    fi
+
+    Info "Installing simplescreenrecorder ..."
+
+    sudo apt update
+    sudo apt install simplescreenrecorder -y
+
+    Success "Installed simplescreenrecorder" 
+}
+
 function InstallNginx()
 {
     if ( which nginx 1>/dev/null ); then
@@ -739,6 +754,7 @@ InstallGit
 InstallDocker
 InstallDockerCompose
 InstallAnydesk
+InstallScreenRecorder
 InstallNginx
 InstallMkcert
 InstallMicro
