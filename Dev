@@ -215,21 +215,6 @@ function InstallScreenRecorder()
     Success "Installed simplescreenrecorder" 
 }
 
-function InstallVlc()
-{
-    if ( which InstallVlc 1>/dev/null); then
-         Success "vlc;$Check"
-         return
-
-    fi 
-
-    Info "Installing vlc ..."
-    
-    sudo apt install vlc -y
-
-    Succes "Installed vlc"
-}
-
 function InstallNginx()
 {
     if ( which nginx 1>/dev/null ); then
@@ -770,7 +755,6 @@ InstallDocker
 InstallDockerCompose
 InstallAnydesk
 InstallScreenRecorder
-InstallVlc
 InstallNginx
 InstallMkcert
 InstallMicro
