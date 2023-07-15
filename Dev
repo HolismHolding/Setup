@@ -316,7 +316,7 @@ function InstallBashCompletion()
 
     if [ -f /etc/profile.d/bash_completion.sh ]; then
         Success "BashCompletion;$Check"
-        BashCompletionUpdate
+        UpdateBashCompletion
         return;
     fi
 
