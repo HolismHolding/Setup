@@ -110,6 +110,7 @@ function InstallVsCode()
     sudo apt install code -y
 
     code --install-extension ms-vscode-remote.remote-containers
+    code --install-extension streetsidesoftware.code-spell-checker
 
     Success "Installed VS Code"
 }
