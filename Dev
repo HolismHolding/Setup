@@ -742,6 +742,12 @@ function PreventDimmingAndSleeping()
     gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout 0
 }
 
+function PreventMultiWorkspaces()
+{
+    Info "Preventing multi-workspaces"
+    gsettings set org.gnome.desktop.wm.preferences num-workspaces 1
+}
+
 sudo echo ""
 cd /Temp
 Divide
@@ -784,23 +790,11 @@ SetLocaleToEnglishUs
 ConfigureKeyboard
 SetFavoriteApps
 SetChromeAsTheDefaultBrowser
-InstallHttpie
-InstallPip
-DownloadVsCodeExtensions
-RegisterDockerMirror
-RegisterHolismCommands
-
-GiveAccessToRoot
-# TestGitHubAccess
-AddPersianInputSource
-SetLocaleToEnglishUs
-ConfigureKeyboard
-SetFavoriteApps
-
 DisableWayland
 SetAppsToOpenMaximized
 IncreaseLimits
 PreventDimmingAndSleeping
+PreventMultiWorkspaces
 
 CloneInfra
 PullImages
