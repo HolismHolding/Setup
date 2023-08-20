@@ -774,6 +774,12 @@ function PreventMultiWorkspaces()
     gsettings set org.gnome.desktop.wm.preferences num-workspaces 1
 }
 
+function TurnOffAutomaticScreenLock()
+{
+    gsettings set org.gnome.desktop.screensaver lock-enabled false
+    Success "Turned off Automatic Screen Lock"
+}
+
 sudo echo ""
 cd /Temp
 Divide
@@ -823,6 +829,7 @@ SetAppsToOpenMaximized
 IncreaseLimits
 PreventDimmingAndSleeping
 PreventMultiWorkspaces
+TurnOffAutomaticScreenLock
 
 CloneInfra
 PullImages
