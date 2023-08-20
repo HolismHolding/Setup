@@ -109,10 +109,35 @@ function InstallVsCode()
     sudo apt update
     sudo apt install code -y
 
+    Success "Installed VS Code"
+}
+
+function InstallVsCodeExtensionRemoteContainers()
+{
+    if code --list-extensions | grep -q 'ms-vscode-remote.remote-containers'; then
+        Success "Remote Containers Extension;$Check"
+        return
+    fi
+
+    Info "Installing Remote Containers Extension..."
+
     code --install-extension ms-vscode-remote.remote-containers
+
+    Success "Installed Remote Containers Extension"
+}
+
+function InstallVsCodeExtensionCodeSpellChecker()
+{
+    if code --list-extensions | grep -q 'streetsidesoftware.code-spell-checker'; then
+        Success "Code Spell Checker Extension;$Check"
+        return
+    fi
+
+    Info "Installing Code Spell Checker Extension..."
+
     code --install-extension streetsidesoftware.code-spell-checker
 
-    Success "Installed VS Code"
+    Success "Installed Code Spell Checker Extension"
 }
 
 function InstallGit()
@@ -758,6 +783,8 @@ Divide
 # InstallVpn
 InstallChrome
 InstallVsCode
+InstallVsCodeExtensionRemoteContainers
+InstallVsCodeExtensionCodeSpellChecker
 InstallGit
 InstallDocker
 InstallDockerCompose
