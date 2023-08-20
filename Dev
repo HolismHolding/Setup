@@ -610,20 +610,15 @@ function SetLocaleToEnglishUs()
         return;
     fi
 
-    Info "Setting locale to US English ..."
-
     sudo update-locale LANG=en_US.UTF-8
     gsettings set org.gnome.system.locale region 'en_US.UTF-8'
     dbus-send --print-reply --system --dest=org.freedesktop.Accounts /org/freedesktop/Accounts/User$UID org.freedesktop.Accounts.User.SetFormatsLocale string:'en_US.UTF-8' 1>/dev/null
-
 
     Success "Set locale to US English"
 }
 
 function ConfigureKeyboard()
 {
-    Info "Configring keyboard ..."
-
     gsettings set org.gnome.desktop.peripherals.keyboard repeat-interval 40
     gsettings set org.gnome.desktop.peripherals.keyboard delay 250
 
@@ -637,8 +632,6 @@ function SetFavoriteApps()
 
 function SetChromeAsTheDefaultBrowser()
 {
-    Info "Setting Chrome as the default browser ..."
-
     sudo update-alternatives --install /usr/bin/x-www-browser x-www-browser /usr/bin/google-chrome 500 1>/dev/null
     sudo update-alternatives --set x-www-browser /usr/bin/google-chrome 1>/dev/null
 
@@ -647,8 +640,6 @@ function SetChromeAsTheDefaultBrowser()
 
 function DisableWayland()
 {
-    Info "Disabling Wayland ..."
-    
     sudo sed -i 's/#\s*WaylandEnable\s*=.*$/WaylandEnable=false/g' /etc/gdm3/custom.conf
     sudo sed -i 's/#\s*AutomaticLoginEnable\s*=.*$/AutomaticLoginEnable=true/g' /etc/gdm3/custom.conf
     sudo sed -i 's/#\s*AutomaticLogin\s*=.*$/AutomaticLogin=$USERNAME/g' /etc/gdm3/custom.conf
@@ -663,8 +654,6 @@ function SetAppsToOpenMaximized()
     else
         sudo apt install devilspie2 -y
     fi
-
-    Info "Configuring apps to be opened maximized ..."
 
     if [ ! -d ~/.config/devilspie2 ]; then
         mkdir ~/.config/devilspie2
@@ -687,12 +676,12 @@ function SetAppsToOpenMaximized()
 
 function IncreaseLimits()
 {
-    Info "Increasing limits ..."
-
     # sysctl fs.inotify
     sudo sysctl fs.inotify.max_user_instances=8192 1>/dev/null
     sudo sed -i 's/^.*DefaultLimitNOFILE=.*$/DefaultLimitNOFILE=65536/g' /etc/systemd/system.conf 
     sudo sed -i 's/^.*DefaultLimitNOFILE=.*$/DefaultLimitNOFILE=65536/g' /etc/systemd/user.conf 
+
+    Success "Increased Limits"
 }
 
 function CloneInfra()
@@ -761,23 +750,23 @@ function SetProjectsOrganization()
 
 function PreventDimmingAndSleeping()
 {
-    Info "Setting the power saving options"
     gsettings set org.gnome.settings-daemon.plugins.power ambient-enabled false
     gsettings set org.gnome.settings-daemon.plugins.power idle-dim false
     gsettings set org.gnome.settings-daemon.plugins.power sleep-inactive-ac-timeout 0
+    Success "Configured the power saving options"
 }
 
 function PreventMultiWorkspaces()
 {
-    Info "Preventing multi-workspaces"
     gsettings set org.gnome.mutter dynamic-workspaces false
     gsettings set org.gnome.desktop.wm.preferences num-workspaces 1
+    Success "Disabled multi-workspaces"
 }
 
 function TurnOffAutomaticScreenLock()
 {
     gsettings set org.gnome.desktop.screensaver lock-enabled false
-    Success "Turned off Automatic Screen Lock"
+    Success "Disabled Automatic Screen Lock"
 }
 
 sudo echo ""
