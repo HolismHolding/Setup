@@ -410,6 +410,13 @@ function InstallEsprima()
     Success "esprima; $Check"
 }
 
+function InstallInflect()
+{
+    pip install inflect 1>/dev/null
+
+    Success "inflect; $Check"
+}
+
 function InstallJq()
 {
     if ( which jq 1>/dev/null ); then
@@ -802,6 +809,7 @@ InstallBashCompletion
 InstallHttpie
 InstallPip
 InstallEsprima
+InstallInflect
 DownloadVsCodeExtensions
 RegisterDockerMirror
 RegisterHolismCommands
