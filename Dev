@@ -403,13 +403,6 @@ function InstallPip()
     Success "Installed pip"
 }
 
-function InstallEsprima()
-{
-    pip install esprima 1>/dev/null
-
-    Success "esprima; $Check"
-}
-
 function InstallInflect()
 {
     pip install inflect 1>/dev/null
@@ -808,7 +801,6 @@ InstallBashCompletion
 #InstallWireshark
 InstallHttpie
 InstallPip
-InstallEsprima
 InstallInflect
 DownloadVsCodeExtensions
 RegisterDockerMirror
