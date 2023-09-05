@@ -40,7 +40,7 @@ function InstallVpn()
 {
     if [ ! -f /LocalSecrets/Vpn ]; then
         sudo mkdir /LocalSecrets
-        sudo chmod 777 /LocalSecrets
+        sudo chmod 777 --preserve-root /LocalSecrets
         Divide
         Info Please enter your VPN username
         Divide
@@ -52,7 +52,7 @@ function InstallVpn()
         Divide
         echo $Username > /LocalSecrets/Vpn
         echo $Password >> /LocalSecrets/Vpn
-        sudo chmod 777 /LocalSecrets/Vpn
+        sudo chmod 777 --preserve-root /LocalSecrets/Vpn
     fi
 
     if ( which piactl 1>/dev/null ); then
@@ -62,7 +62,7 @@ function InstallVpn()
 
         wget https://holism.blob.core.windows.net/downloads/pia.zip -O /Temp/pia.zip
         sudo unzip /Temp/pia.zip
-        sudo chmod 777 /Temp/pia-linux-3.3.1-06924.run
+        sudo chmod 777 --preserve-root /Temp/pia-linux-3.3.1-06924.run
         sh /Temp/pia-linux-3.3.1-06924.run
         sudo rm -rf /Temp/pia-linux-3.3.1-06924.run
         sudo rm -rf /Temp/pia-linux.zip
@@ -283,7 +283,7 @@ function InstallMicro()
 
     Info "Installing Micro ..."
 
-    sudo chmod -R 777 /usr/local/bin
+    sudo chmod -R 777 --preserve-root /usr/local/bin
     cd /usr/local/bin
     sudo curl https://getmic.ro | bash
 
@@ -518,7 +518,7 @@ function RegisterHolismCommands()
     
     Info "Registering Holism Commands ..."
 
-    sudo chmod 777 /etc/bash.bashrc
+    sudo chmod 777 --preserve-root /etc/bash.bashrc
     sudo echo 'PATH="${PATH}:/HolismHolding/Commands"' >> /etc/bash.bashrc
 
     Success "Registered Holism Commands"
