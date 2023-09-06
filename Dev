@@ -410,6 +410,13 @@ function InstallInflect()
     Success "inflect; $Check"
 }
 
+function InstallHump()
+{
+    pip install pyhumps 1>/dev/null
+
+    Success "pyhumps; $Check"
+}
+
 function InstallJq()
 {
     if ( which jq 1>/dev/null ); then
@@ -802,6 +809,7 @@ InstallBashCompletion
 InstallHttpie
 InstallPip
 InstallInflect
+InstallHump
 DownloadVsCodeExtensions
 RegisterDockerMirror
 RegisterHolismCommands
