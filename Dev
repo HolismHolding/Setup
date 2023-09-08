@@ -504,14 +504,20 @@ function InstallDconfEditor()
     Success "Installed dconf-editor"
 }
 
-function RegisterDockerMirror()
+function ConfigureDocker()
 {
-    sudo echo "{" 2>/dev/null > /etc/docker/daemon.json
-    sudo echo "  \"registry-mirrors\": [\"https://docker.iranserver.com\"]" 2>/dev/null >> /etc/docker/daemon.json
-    sudo echo "}" 2>/dev/null >> /etc/docker/daemon.json
+    sudo mkdir -p /etc/docker
+    sudo chmod 777 --preserve-root /etc/docker
+
+    sudo bash -c 'echo "{" > /etc/docker/daemon.json'
+    sudo bash -c 'echo "  \"registry-mirrors\": [\"https://docker.iranserver.com\", \"https://registry.docker.ir\", \"https://mirror.gcr.io\"]" >> /etc/docker/daemon.json'
+    # sudo echo "  \"features\": { \"containerd-snapshotter\": true }" >> /etc/docker/daemon.json
+    sudo bash -c 'echo "}" >> /etc/docker/daemon.json'
 
     sudo systemctl daemon-reload
     sudo systemctl restart docker
+
+    # docker system info
 
     # https://mirror.iranserver.com/docker/
 }
@@ -811,7 +817,7 @@ InstallPip
 InstallInflect
 InstallHump
 DownloadVsCodeExtensions
-RegisterDockerMirror
+ConfigureDocker
 RegisterHolismCommands
 
 GiveAccessToRoot
