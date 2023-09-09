@@ -115,6 +115,7 @@ function InstallVsCode()
 function InstallVsCodeExtensionRemoteContainers()
 {
     if code --list-extensions | grep -q 'ms-vscode-remote.remote-containers'; then
+        code --install-extension ms-vscode-remote.remote-containers --force 1>2 2>/dev/null
         Success "Remote Containers Extension;$Check"
         return
     fi
@@ -129,6 +130,7 @@ function InstallVsCodeExtensionRemoteContainers()
 function InstallVsCodeExtensionCodeSpellChecker()
 {
     if code --list-extensions | grep -q 'streetsidesoftware.code-spell-checker'; then
+        code --install-extension streetsidesoftware.code-spell-checker --force 1>2 2>/dev/null
         Success "Code Spell Checker Extension;$Check"
         return
     fi
