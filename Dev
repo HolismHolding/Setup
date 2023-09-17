@@ -115,7 +115,7 @@ function InstallVsCode()
 function InstallVsCodeExtensionRemoteContainers()
 {
     if code --list-extensions | grep -q 'ms-vscode-remote.remote-containers'; then
-        code --install-extension ms-vscode-remote.remote-containers --force 1>2 2>/dev/null
+        code --install-extension ms-vscode-remote.remote-containers --force 2>&1 >/dev/null
         Success "Remote Containers Extension;$Check"
         return
     fi
@@ -130,7 +130,7 @@ function InstallVsCodeExtensionRemoteContainers()
 function InstallVsCodeExtensionCodeSpellChecker()
 {
     if code --list-extensions | grep -q 'streetsidesoftware.code-spell-checker'; then
-        code --install-extension streetsidesoftware.code-spell-checker --force 1>2 2>/dev/null
+        code --install-extension streetsidesoftware.code-spell-checker --force 2>&1 >/dev/null
         Success "Code Spell Checker Extension;$Check"
         return
     fi
@@ -228,7 +228,7 @@ function InstallDockerCompose()
 
     sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 
-    sudo chmod +x /usr/local/bin/docker-compose
+    sudo chmod +x --preserve-root /usr/local/bin/docker-compose
     docker-compose --version
 
     Success "Installed Docker Compose"
@@ -293,7 +293,7 @@ function InstallMkcert()
     sudo apt install libnss3-tools
     wget https://github.com/FiloSottile/mkcert/releases/download/v1.4.4/mkcert-v1.4.4-linux-amd64 -O mkcert
     sudo cp mkcert /usr/local/bin/mkcert
-    sudo chmod +x /usr/local/bin/mkcert
+    sudo chmod +x --preserve-root /usr/local/bin/mkcert
     mkcert -install
 
     Success "Installed Mkcert"
@@ -535,8 +535,8 @@ function ConfigureDocker()
     sudo chmod 777 --preserve-root /etc/docker
 
     sudo bash -c 'echo "{" > /etc/docker/daemon.json'
-    sudo bash -c 'echo "  \"registry-mirrors\": [\"https://docker.iranserver.com\", \"https://registry.docker.ir\", \"https://mirror.gcr.io\"]" >> /etc/docker/daemon.json'
-    # sudo echo "  \"features\": { \"containerd-snapshotter\": true }" >> /etc/docker/daemon.json
+    sudo bash -c 'echo " \"registry-mirrors\": [\"https://docker.iranserver.com\", \"https://registry.docker.ir\", \"https://mirror.gcr.io\"]" >> /etc/docker/daemon.json'
+    # sudo echo " \"features\": { \"containerd-snapshotter\": true }" >> /etc/docker/daemon.json
     sudo bash -c 'echo "}" >> /etc/docker/daemon.json'
 
     sudo systemctl daemon-reload
