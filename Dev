@@ -754,35 +754,44 @@ function CloneInfra()
 
 function PullImages()
 {
-    if ( docker image ls | grep api 1>/dev/null ); then
-        Success "holism/api;$Check"
-    else
-        Info "Getting holism/api"
-        docker pull holism/api
-    fi
-    if ( docker image ls | grep panel 1>/dev/null ); then
-        Success "holism/panel;$Check"
-    else
-        Info "Getting holism/panel"
-        docker pull holism/panel
-    fi
     if ( docker image ls | grep site 1>/dev/null ); then
         Success "holism/site;$Check"
     else
         Info "Getting holism/site"
         docker pull holism/site
     fi
-    if ( docker image ls | grep mariadb 1>/dev/null ); then
+
+
+    IsFullStackDeveloper
+    if [ $? -eq 1 ];
+    then
+        if ( docker image ls | grep api 1>/dev/null ); then
+            Success "holism/api;$Check"
+        else
+            Info "Getting holism/api"
+            docker pull holism/api
+        fi
+
+        if ( docker image ls | grep mariadb 1>/dev/null ); then
         Success "mariadb;$Check"
-    else
-        Info "Getting mariadb"
-        docker pull mariadb
-    fi
-    if ( docker image ls | grep adminer 1>/dev/null ); then
-        Success "adminer;$Check"
-    else
-        Info "Getting adminer"
-        docker pull adminer
+        else
+            Info "Getting mariadb"
+            docker pull mariadb
+        fi
+
+        if ( docker image ls | grep panel 1>/dev/null ); then
+            Success "holism/panel;$Check"
+        else
+            Info "Getting holism/panel"
+            docker pull holism/panel
+        fi
+
+        if ( docker image ls | grep adminer 1>/dev/null ); then
+            Success "adminer;$Check"
+        else
+            Info "Getting adminer"
+            docker pull adminer
+        fi
     fi
 }
 
