@@ -329,6 +329,20 @@ function InstallTelnet()
     Success "Installed Telnet"
 }
 
+function InstallTrans()
+{
+    if ( which trans 1>/dev/null ); then
+        Success "Trans;$Check"
+        return
+    fi
+
+    Info "Installing Trans ..."
+
+    sudo wget git.io/trans
+
+    Success "Installed Trans"
+}
+
 function InstallBeyondCompare()
 {
     if ( which bcompare 1>/dev/null ); then
