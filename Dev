@@ -68,7 +68,7 @@ function InstallVpn()
         sudo rm -rf /Temp/pia-linux.zip
 
         piactl login /LocalSecrets/Vpn
-        
+
         Success "Installed Private Internet Access"
     fi
 }
@@ -82,7 +82,7 @@ function InstallChrome()
 
     Info "Installing Google Chrome ..."
 
-    sudo apt-get update 
+    sudo apt-get update
     #sudo apt upgrade
     wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O chrome
 
@@ -157,7 +157,7 @@ function InstallAzureDataStudio()
         wget https://go.microsoft.com/fwlink/?linkid=2242943
         mv index.html\?linkid\=2242943 /Temp/ads.deb
     fi
-    
+
     sudo apt install /Temp/ads.deb -y
     # If not connecting => [update OpenSSL](https://github.com/microsoft/azuredatastudio/issues/13457#issuecomment-832202549)
     rm -rf /Temp/ads.deb
@@ -207,7 +207,7 @@ function InstallDocker()
     sudo apt-get update
     sudo apt-get install docker-ce docker-ce-cli containerd.io -y
     sudo docker run hello-world
-    
+
     # sudo gpasswd -a $USER docker
     # newgrp docker
     # sudo groupadd docker
@@ -263,7 +263,7 @@ function InstallScreenRecorder()
     sudo apt update
     sudo apt install simplescreenrecorder -y
 
-    Success "Installed simplescreenrecorder" 
+    Success "Installed simplescreenrecorder"
 }
 
 function InstallNginx()
@@ -338,7 +338,7 @@ function InstallTrans()
 
     Info "Installing Trans ..."
 
-    sudo wget git.io/trans
+    sudo apt install translate-shell
 
     Success "Installed Trans"
 }
@@ -567,7 +567,7 @@ function RegisterHolismCommands()
         Success "Holism commands;$Check"
         return;
     fi
-    
+
     Info "Registering Holism Commands ..."
 
     sudo chmod 777 --preserve-root /etc/bash.bashrc
@@ -579,13 +579,13 @@ function RegisterHolismCommands()
 function SetDockerPermissions()
 {
     Info "Setting docker permissions ... "
-    
+
     sudo gpasswd -a $USER docker
     newgrp docker
     sudo groupadd docker
     sudo usermod -aG docker ${USER}
     sudo usermod -aG docker $USER
-    
+
     Success "Set docker permissions"
 }
 
@@ -730,8 +730,8 @@ function IncreaseLimits()
 {
     # sysctl fs.inotify
     sudo sysctl fs.inotify.max_user_instances=8192 1>/dev/null
-    sudo sed -i 's/^.*DefaultLimitNOFILE=.*$/DefaultLimitNOFILE=65536/g' /etc/systemd/system.conf 
-    sudo sed -i 's/^.*DefaultLimitNOFILE=.*$/DefaultLimitNOFILE=65536/g' /etc/systemd/user.conf 
+    sudo sed -i 's/^.*DefaultLimitNOFILE=.*$/DefaultLimitNOFILE=65536/g' /etc/systemd/system.conf
+    sudo sed -i 's/^.*DefaultLimitNOFILE=.*$/DefaultLimitNOFILE=65536/g' /etc/systemd/user.conf
 
     Success "Increased Limits"
 }
@@ -841,6 +841,7 @@ InstallNginx
 InstallMkcert
 InstallMicro
 InstallTelnet
+InstallTrans
 InstallBeyondCompare
 InstallSshServer
 InstallJq
