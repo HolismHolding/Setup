@@ -856,7 +856,12 @@ InstallHttpie
 InstallPip
 InstallInflect
 InstallHump
-DownloadVsCodeExtensions
+
+IsFullStackDeveloper
+if [ $? -eq 1 ]; then
+    DownloadVsCodeExtensions
+fi
+
 ConfigureDocker
 RegisterHolismCommands
 
