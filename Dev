@@ -818,16 +818,16 @@ function SetProjectsOrganization()
 
 function SetDeveloperRole()
 {
-    if ! [ "$( cat  ~/.bashrc  | grep DEVELOPERROLE )" ]; 
+    if ! [ "$( cat  /etc/bash.bashrc  | grep DEVELOPERROLE )" ]; 
     then
         Divide
         Info "What is your role as a developer? (If you are a front-end developer, press Enter)"
         Divide
         read Role
         if [ $Role ]; then
-            echo "export DEVELOPERROLE='$Role' " >> ~/.bashrc 
+            echo "export DEVELOPERROLE='$Role' " >> /etc/bash.bashrc
         else
-            echo "export DEVELOPERROLE='FrontEnd' " >> ~/.bashrc 
+            echo "export DEVELOPERROLE='FrontEnd' " >> /etc/bash.bashrc
         fi    
     fi  
 }
