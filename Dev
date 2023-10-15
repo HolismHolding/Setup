@@ -36,6 +36,14 @@ function Divide()
     echo ""
 }
 
+function IsFullStackDeveloper()
+{
+    if [[ "$DEVELOPERROLE" == "FullStack" ]]; then
+        return 1;
+    fi
+    return 0;
+}
+
 function InstallVpn()
 {
     if [ ! -f /LocalSecrets/Vpn ]; then
@@ -760,7 +768,6 @@ function PullImages()
         Info "Getting holism/site"
         docker pull holism/site
     fi
-
 
     IsFullStackDeveloper
     if [ $? -eq 1 ];
