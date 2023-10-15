@@ -809,6 +809,22 @@ function SetProjectsOrganization()
     sudo echo "export ProjectsOrganization=$ProjectsOrganization" >> /etc/bash.bashrc
 }
 
+function SetDeveloperRole()
+{
+    if ! [ "$( cat  ~/.bashrc  | grep DEVELOPERROLE )" ]; 
+    then
+        Divide
+        Info "Please enter developer role: (for FontEnd role By press Enter Skip)"
+        Divide
+        read Role
+        if [ $Role ]; then
+            echo "export DEVELOPERROLE='$Role' " >> ~/.bashrc 
+        else
+            echo "export DEVELOPERROLE='FrontEnd' " >> ~/.bashrc 
+        fi    
+    fi  
+}
+
 function PreventDimmingAndSleeping()
 {
     gsettings set org.gnome.settings-daemon.plugins.power ambient-enabled false
@@ -829,6 +845,8 @@ function TurnOffAutomaticScreenLock()
     gsettings set org.gnome.desktop.screensaver lock-enabled false
     Success "Disabled Automatic Screen Lock"
 }
+
+SetDeveloperRole
 
 sudo echo ""
 cd /Temp
