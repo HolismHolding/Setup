@@ -821,7 +821,7 @@ function SetDeveloperRole()
     if ! [ "$( cat  ~/.bashrc  | grep DEVELOPERROLE )" ]; 
     then
         Divide
-        Info "Please enter developer role: (for FontEnd role By press Enter Skip)"
+        Info "What is your role as a developer? (If you are a front-end developer, press Enter)"
         Divide
         read Role
         if [ $Role ]; then
@@ -853,7 +853,7 @@ function TurnOffAutomaticScreenLock()
     Success "Disabled Automatic Screen Lock"
 }
 
-SetDeveloperRole
+# SetDeveloperRole
 
 sudo echo ""
 cd /Temp
