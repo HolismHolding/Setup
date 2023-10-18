@@ -756,8 +756,7 @@ function PullImages()
         docker pull holism/site
     fi
 
-    IsFullStackDeveloper
-    if [ $? -eq 1 ];
+    if IsFullStackDeveloper;
     then
         if ( docker image ls | grep api 1>/dev/null ); then
             Success "holism/api;$Check"
@@ -878,8 +877,7 @@ InstallPip
 InstallInflect
 InstallHump
 
-IsFullStackDeveloper
-if [ $? -eq 1 ]; then
+if IsFullStackDeveloper; then
     DownloadVsCodeExtensions
 fi
 
