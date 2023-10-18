@@ -38,7 +38,7 @@ function Divide()
 
 function IsFullStackDeveloper()
 {
-    if [[ "$DEVELOPERROLE" == "FullStack" ]]; then
+    if [[ "$DeveloperRole" == "FullStack" ]]; then
         return 0;
     fi
     return 1;
@@ -804,16 +804,16 @@ function SetProjectsOrganization()
 
 function SetDeveloperRole()
 {
-    if ! [ "$( cat /etc/bash.bashrc | grep DEVELOPERROLE )" ];
+    if ! [ "$( cat /etc/bash.bashrc | grep DeveloperRole )" ];
     then
         Divide
         Info "What is your role as a developer? (If you are a front-end developer, press Enter)"
         Divide
         read Role
         if [ $Role ]; then
-            echo "export DEVELOPERROLE='$Role' " >> /etc/bash.bashrc
+            echo "export DeveloperRole='$Role' " >> /etc/bash.bashrc
         else
-            echo "export DEVELOPERROLE='FrontEnd' " >> /etc/bash.bashrc
+            echo "export DeveloperRole='FrontEnd' " >> /etc/bash.bashrc
         fi
     fi
 }
