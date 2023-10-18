@@ -613,21 +613,6 @@ function DownloadVsCodeExtensions()
         Success "Downloaded C# VS Code extension "
 
     fi
-
-    # if [ -f /HolismHolding/Extensions/Python.vsix ]; then
-    #     Success "Python extension;$Check"
-    # else
-
-    #     Info "Downloading Python VS Code extension ... "
-
-    #     sudo mkdir -p /HolismHolding/Extensions
-
-    #     wget https://holism.blob.core.windows.net/downloads/python.vsix -O Python.vsix
-    #     sudo mv Python.vsix /HolismHolding/Extensions/Python.vsix
-
-    #     Success "Downloaded Python VS Code extension "
-
-    # fi
 }
 
 function GiveAccessToRoot()
@@ -749,11 +734,13 @@ function CloneInfra()
     if [ ! -d /HolismHolding ]; then
         Clone HolismHolding
     fi
-    if [ ! -d /HolismApi ]; then
-        Clone HolismApi
-    fi
-    if [ ! -d /HolismPanel ]; then
-        Clone HolismPanel
+    if IsFullStackDeveloper; then
+        if [ ! -d /HolismApi ]; then
+            Clone HolismApi
+        fi
+        if [ ! -d /HolismPanel ]; then
+            Clone HolismPanel
+        fi
     fi
     if [ ! -d /HolismSite ]; then
         Clone HolismSite
@@ -818,7 +805,7 @@ function SetProjectsOrganization()
 
 function SetDeveloperRole()
 {
-    if ! [ "$( cat  /etc/bash.bashrc  | grep DEVELOPERROLE )" ]; 
+    if ! [ "$( cat /etc/bash.bashrc | grep DEVELOPERROLE )" ];
     then
         Divide
         Info "What is your role as a developer? (If you are a front-end developer, press Enter)"
@@ -828,8 +815,8 @@ function SetDeveloperRole()
             echo "export DEVELOPERROLE='$Role' " >> /etc/bash.bashrc
         else
             echo "export DEVELOPERROLE='FrontEnd' " >> /etc/bash.bashrc
-        fi    
-    fi  
+        fi
+    fi
 }
 
 function PreventDimmingAndSleeping()
