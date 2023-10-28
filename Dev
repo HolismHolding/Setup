@@ -551,6 +551,22 @@ function InstallDconfEditor()
     Success "Installed dconf-editor"
 }
 
+function InstallWarp()
+{
+    if ( which warp-cli 1>/dev/null ); then
+        Success "Warp;$Check"
+        return
+    fi
+
+    Info "Installing warp-cli ..."
+
+    curl https://pkg.cloudflareclient.com/pubkey.gpg | sudo gpg --yes --dearmor --output /usr/share/keyrings/cloudflare-warp-archive-keyring.gpg
+    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/cloudflare-warp-archive-keyring.gpg] https://pkg.cloudflareclient.com/ $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/cloudflare-client.list
+    sudo apt-get update && sudo apt-get install cloudflare-warp
+
+    Success "Installed warp-cli"
+}
+
 function ConfigureDocker()
 {
     sudo mkdir -p /etc/docker
@@ -870,6 +886,7 @@ InstallRename
 InstallParallel
 InstallBaobab
 InstallDconfEditor
+InstallWarp
 InstallBashCompletion
 #InstallWireshark
 InstallHttpie
