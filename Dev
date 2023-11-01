@@ -853,6 +853,12 @@ function TurnOffAutomaticScreenLock()
     Success "Disabled Automatic Screen Lock"
 }
 
+function SetThousandsSeparatorToCalculator()
+{
+    gsettings set org.gnome.calculator show-thousands true
+    Success "Configured the Calculator thousand separator"
+}
+
 # SetDeveloperRole
 
 sudo echo ""
@@ -912,6 +918,7 @@ IncreaseLimits
 PreventDimmingAndSleeping
 PreventMultiWorkspaces
 TurnOffAutomaticScreenLock
+SetThousandsSeparatorToCalculator
 
 CloneInfra
 PullImages
