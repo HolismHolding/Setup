@@ -252,7 +252,7 @@ function InstallAnydesk()
     Info "Installing AnyDesk ..."
 
     wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | sudo apt-key add -
-    echo "deb https://deb.anydesk.com/ all main" | sudo tee /etc/apt/sources.list.d/anydesk-stable.list
+    echo "deb http://deb.anydesk.com/ all main" | sudo tee /etc/apt/sources.list.d/anydesk-stable.list
     sudo apt update
     sudo apt install anydesk -y
 
@@ -716,11 +716,9 @@ function SetAppsToOpenMaximized()
         sudo apt install devilspie2 -y
     fi
 
-    if [ ! -d ~/.config/devilspie2 ]; then
-        mkdir ~/.config/devilspie2
-    fi
+    mkdir -p ~/.config/devilspie2
 
-    if [ ! -f ~/.config/devilspie2/maximize.lua ]; then
+    if [ ! -s ~/.config/devilspie2/maximize.lua ]; then
         wget https://raw.githubusercontent.com/HolismHolding/Setup/main/Maximize -O ~/.config/devilspie2/maximize.lua
     fi
 
@@ -728,7 +726,7 @@ function SetAppsToOpenMaximized()
         mkdir ~/.config/autostart
     fi
 
-    if [ ! -f ~/.config/autostart/devilspie2.desktop ]; then
+    if [ ! -s ~/.config/autostart/devilspie2.desktop ]; then
         wget https://raw.githubusercontent.com/HolismHolding/Setup/main/Autostart -O ~/.config/autostart/devilspie2.desktop
     fi
 
@@ -855,6 +853,12 @@ function TurnOffAutomaticScreenLock()
     Success "Disabled Automatic Screen Lock"
 }
 
+function SetThousandsSeparatorToCalculator()
+{
+    gsettings set org.gnome.calculator show-thousands true
+    Success "Configured the Calculator thousand separator"
+}
+
 # SetDeveloperRole
 
 sudo echo ""
@@ -914,6 +918,7 @@ IncreaseLimits
 PreventDimmingAndSleeping
 PreventMultiWorkspaces
 TurnOffAutomaticScreenLock
+SetThousandsSeparatorToCalculator
 
 CloneInfra
 PullImages
