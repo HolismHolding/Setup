@@ -859,6 +859,16 @@ function SetThousandsSeparatorToCalculator()
     Success "Configured the Calculator thousand separator"
 }
 
+function SetTimeZone()
+{
+    if ( timedatectl | grep "Asia/Tehran" 1>/dev/null ); then
+        Success "Time Zone;$Check"
+        return;
+    fi
+    timedatectl set-timezone Asia/Tehran
+    Success "Configured Time Zone"
+}
+
 # SetDeveloperRole
 
 sudo echo ""
@@ -919,6 +929,7 @@ PreventDimmingAndSleeping
 PreventMultiWorkspaces
 TurnOffAutomaticScreenLock
 SetThousandsSeparatorToCalculator
+SetTimeZone
 
 CloneInfra
 PullImages
