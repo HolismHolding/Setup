@@ -292,6 +292,7 @@ function InstallNginx()
 function InstallMkcert()
 {
     if ( which mkcert 1>/dev/null ); then
+        mkcert -install 2>/dev/null
         Success "Mkcert;$Check"
         return
     fi
