@@ -931,9 +931,12 @@ PreventMultiWorkspaces
 TurnOffAutomaticScreenLock
 SetThousandsSeparatorToCalculator
 SetTimeZone
+if [[ -d /HolismHolding/Commands/ConfigVsCode ]]; then
+    /HolismHolding/Commands/ConfigVsCode
+fi
 
 CloneInfra
-PullImages
+# PullImages
 SetProjectsOrganization
 
 Divide
