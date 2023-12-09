@@ -552,6 +552,20 @@ function InstallDconfEditor()
     Success "Installed dconf-editor"
 }
 
+function InstallDconfEditor()
+{
+    if ( which safeeyes 1>/dev/null ); then
+        Success "SafeEyes;$Check"
+        return
+    fi
+
+    Info "Installing safeeyes ..."
+
+    sudo apt-get install safeeyes -y
+
+    Success "Installed safeeyes"
+}
+
 function InstallWarp()
 {
     if ( which warp-cli 1>/dev/null ); then
@@ -905,6 +919,7 @@ InstallRename
 InstallParallel
 InstallBaobab
 InstallDconfEditor
+InstallSafeEye
 # InstallWarp
 InstallBashCompletion
 #InstallWireshark
@@ -912,6 +927,7 @@ InstallHttpie
 InstallPip
 InstallInflect
 InstallHump
+InstallSafeEye
 
 if IsFullStackDeveloper; then
     DownloadVsCodeExtensions
