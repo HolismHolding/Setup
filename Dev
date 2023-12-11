@@ -552,7 +552,7 @@ function InstallDconfEditor()
     Success "Installed dconf-editor"
 }
 
-function InstallDconfEditor()
+function InstallSafeEye()
 {
     if ( which safeeyes 1>/dev/null ); then
         Success "SafeEyes;$Check"
@@ -927,7 +927,6 @@ InstallHttpie
 InstallPip
 InstallInflect
 InstallHump
-InstallSafeEye
 
 if IsFullStackDeveloper; then
     DownloadVsCodeExtensions
