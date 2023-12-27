@@ -480,6 +480,20 @@ function InstallJq()
     Success "Installed jq"
 }
 
+function InstallCloc()
+{
+    if ( which cloc 1>/dev/null ); then
+        Success "CLOC;$Check"
+        return
+    fi
+
+    Info "Installing cloc ..."
+
+    sudo apt install cloc -y
+
+    Success "Installed cloc"
+}
+
 function InstallProgress()
 {
     if ( which progress 1>/dev/null ); then
@@ -914,6 +928,7 @@ InstallTrans
 InstallBeyondCompare
 InstallSshServer
 InstallJq
+# InstallCloc
 InstallProgress
 InstallRename
 InstallParallel
