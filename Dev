@@ -959,6 +959,7 @@ SetFavoriteApps
 SetChromeAsTheDefaultBrowser
 DisableWayland
 SetAppsToOpenMaximized
+PreventSidebarFromBecomingHideable
 IncreaseLimits
 PreventDimmingAndSleeping
 PreventMultiWorkspaces
