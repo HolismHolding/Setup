@@ -766,6 +766,12 @@ function SetAppsToOpenMaximized()
     Success "Configured apps to be opened maximized"
 }
 
+function PreventAutoHideTheDock()
+{
+    gsettings set org.gnome.shell.extensions.dash-to-dock dock-fixed true
+    Success "Configured Fixed dock"
+}
+
 function IncreaseLimits()
 {
     # sysctl fs.inotify
@@ -959,7 +965,7 @@ SetFavoriteApps
 SetChromeAsTheDefaultBrowser
 DisableWayland
 SetAppsToOpenMaximized
-PreventSidebarFromBecomingHideable
+PreventAutoHideTheDock
 IncreaseLimits
 PreventDimmingAndSleeping
 PreventMultiWorkspaces
