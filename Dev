@@ -659,6 +659,7 @@ function DownloadVsCodeExtensions()
         wget https://marketplace.visualstudio.com/_apis/public/gallery/publishers/ms-dotnettools/vsextensions/csharp/2.15.30/vspackage?targetPlatform=linux-x64
         sudo mv vspackage\?targetPlatform\=linux-x64 CSharp.gz
         sudo mv CSharp.gz /HolismHolding/Extensions/
+        # file CSharp.gz
         sudo gunzip -v CSharp.gz
         sudo mv CSharp CSharp.vsix
 
