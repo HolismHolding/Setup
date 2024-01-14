@@ -655,9 +655,12 @@ function DownloadVsCodeExtensions()
         # wget https://holism.blob.core.windows.net/downloads/CSharp20312.vsix -O CSharp.vsix
         # sudo mv CSharp.vsix /HolismHolding/Extensions/CSharp.vsix
 
-        wget https://marketplace.visualstudio.com/_apis/public/gallery/publishers/ms-dotnettools/vsextensions/csharp/2.12.19/vspackage?targetPlatform=linux-x64
-        sudo mv ms-dotnettools.csharp-2.12.19@linux-x64.vsix CSharp.vsix
-        sudo mv CSharp.vsix /HolismHolding/Extensions/
+        find /Temp -maxdepth 1 -name "*vspackage?target*" | xargs rm -rf
+        wget https://marketplace.visualstudio.com/_apis/public/gallery/publishers/ms-dotnettools/vsextensions/csharp/2.15.30/vspackage?targetPlatform=linux-x64
+        sudo mv vspackage\?targetPlatform\=linux-x64 CSharp.gz
+        sudo mv CSharp.gz /HolismHolding/Extensions/
+        sudo gunzip -v CSharp.gz
+        sudo mv CSharp CSharp.vsix
 
         Success "Downloaded C# VS Code extension "
 
