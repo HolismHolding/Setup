@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# todo: use timeout to kill apt update after some time
+
 red=`tput setaf 1`
 green=`tput setaf 2`
 cyan=`tput setaf 6`
