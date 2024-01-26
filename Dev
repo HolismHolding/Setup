@@ -961,7 +961,7 @@ if IsFullStackDeveloper; then
     DownloadVsCodeExtensions
 fi
 
-# ConfigureDocker
+ConfigureDocker
 RegisterHolismCommands
 
 GiveAccessToRoot
