@@ -616,6 +616,13 @@ function ConfigureDocker()
     # https://mirror.iranserver.com/docker/
 }
 
+function ConfigureNginx()
+{
+    sudo sed -i 's/#\s*server_names_hash_bucket_size\s*\d+;$/	server_names_hash_bucket_size 512;/g' /etc/nginx/nginx.conf
+
+    Success "Nginx configured"
+}
+
 function RegisterHolismCommands()
 {
     if ( grep -nr HolismHolding /etc/bash.bashrc 1>/dev/null ); then
@@ -962,6 +969,7 @@ if IsFullStackDeveloper; then
 fi
 
 ConfigureDocker
+ConfigureNginx
 RegisterHolismCommands
 
 GiveAccessToRoot
