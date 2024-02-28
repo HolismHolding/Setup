@@ -164,7 +164,7 @@ function InstallAzureDataStudio()
     if [ -f /media/$USER/Repository/Files/ads.deb ]; then
         sudo cp /media/$USER/Repository/Files/ads.deb /Temp
     else
-        wget https://go.microsoft.com/fwlink/?linkid=2242943
+        wget https://go.microsoft.com/fwlink/?linkid=2251736
         mv index.html\?linkid\=2242943 /Temp/ads.deb
     fi
 
