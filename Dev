@@ -802,17 +802,6 @@ function CloneInfra()
     if [ ! -d /HolismHolding ]; then
         Clone HolismHolding
     fi
-    if IsFullStackDeveloper; then
-        if [ ! -d /HolismApi ]; then
-            Clone HolismApi
-        fi
-        if [ ! -d /HolismPanel ]; then
-            Clone HolismPanel
-        fi
-    fi
-    if [ ! -d /HolismSite ]; then
-        Clone HolismSite
-    fi
 }
 
 function PullImages()
