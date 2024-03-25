@@ -845,20 +845,6 @@ function PullImages()
     fi
 }
 
-function SetProjectsOrganization()
-{
-    if [[ $(cat /etc/bash.bashrc | grep ProjectsOrganization ) ]]; then
-        Success "Projects Organization;$Check"
-        exit;
-    fi
-
-    Divide
-    Info Please enter your projects organization name
-    Divide
-    read ProjectsOrganization
-    sudo echo "export ProjectsOrganization=$ProjectsOrganization" >> /etc/bash.bashrc
-}
-
 function SetDeveloperRole()
 {
     if ! [ "$( cat /etc/bash.bashrc | grep DeveloperRole )" ];
@@ -983,7 +969,6 @@ fi
 
 CloneInfra
 # PullImages
-SetProjectsOrganization
 
 Divide
 
