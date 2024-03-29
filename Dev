@@ -598,29 +598,11 @@ function InstallWarp()
     Success "Installed warp-cli"
 }
 
-function ConfigureDocker()
-{
-    sudo mkdir -p /etc/docker
-    sudo chmod 777 --preserve-root /etc/docker
-
-    sudo bash -c 'echo "{" > /etc/docker/daemon.json'
-    sudo bash -c 'echo " \"registry-mirrors\": [\"https://docker.iranserver.com\", \"https://registry.docker.ir\", \"https://mirror.gcr.io\"]" >> /etc/docker/daemon.json'
-    # sudo echo " \"features\": { \"containerd-snapshotter\": true }" >> /etc/docker/daemon.json
-    sudo bash -c 'echo "}" >> /etc/docker/daemon.json'
-
-    sudo systemctl daemon-reload
-    sudo systemctl restart docker
-
-    # docker system info
-
-    # https://mirror.iranserver.com/docker/
-}
-
 function ConfigureNginx()
 {
     sudo sed -i 's/#\s*server_names_hash_bucket_size\s*\d+;$/	server_names_hash_bucket_size 512;/g' /etc/nginx/nginx.conf
 
-    Success "Nginx configured"
+    # Success "Nginx configured"
 }
 
 function RegisterHolismCommands()
@@ -943,7 +925,6 @@ if IsFullStackDeveloper; then
     DownloadVsCodeExtensions
 fi
 
-ConfigureDocker
 ConfigureNginx
 RegisterHolismCommands
 
