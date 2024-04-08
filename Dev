@@ -229,7 +229,7 @@ function InstallDocker()
 
 function InstallDockerCompose()
 {
-    if ( which docker-compose 1>/dev/null ); then
+    if ( which docker compose 1>/dev/null ); then
         Success "Docker compose;$Check"
         return
     fi
@@ -239,7 +239,7 @@ function InstallDockerCompose()
     sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
 
     sudo chmod +x --preserve-root /usr/local/bin/docker-compose
-    docker-compose --version
+    docker compose --version
 
     Success "Installed Docker Compose"
 }
