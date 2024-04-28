@@ -92,7 +92,7 @@ function InstallChrome()
 
     Info "Installing Google Chrome ..."
 
-    sudo apt-get update
+    sudo apt update
     #sudo apt upgrade
     wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O chrome
 
@@ -184,7 +184,7 @@ function InstallGit()
 
     Info "Installing Git ..."
 
-    sudo apt-get install git -y
+    sudo apt install git -y
     git config --global init.defaultBranch main
 
     Success "Installed Git"
@@ -217,9 +217,7 @@ function InstallDocker()
 
     Info "Installing Docker ..."
 
-    sudo apt-get update
-
-    sudo apt-get install \
+    sudo apt install \
         apt-transport-https \
         ca-certificates \
         curl \
@@ -232,8 +230,8 @@ function InstallDocker()
     "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
     $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
 
-    sudo apt-get update
-    sudo apt-get install docker-ce docker-ce-cli containerd.io -y
+    sudo apt update
+    sudo apt install docker-ce docker-ce-cli containerd.io -y
     sudo docker run hello-world
 
     # sudo gpasswd -a $USER docker
@@ -288,7 +286,6 @@ function InstallScreenRecorder()
 
     Info "Installing simplescreenrecorder ..."
 
-    sudo apt update
     sudo apt install simplescreenrecorder -y
 
     Success "Installed simplescreenrecorder"
@@ -353,7 +350,7 @@ function InstallTelnet()
 
     Info "Installing Telnet ..."
 
-    sudo apt-get install telnet -y
+    sudo apt install telnet -y
 
     Success "Installed Telnet"
 }
@@ -382,7 +379,6 @@ function InstallBeyondCompare()
     Info "Installing Beyond Compare ..."
 
     wget https://www.scootersoftware.com/files/bcompare-4.4.7.28397_amd64.deb
-    sudo apt update
     sudo apt install ./bcompare-4.4.7.28397_amd64.deb
 
     Success "Installed Beyond Compare"
@@ -434,7 +430,7 @@ function InstallWireshark()
 
     Info "Installing Wireshark ..."
 
-    sudo apt-get install wireshark -y
+    sudo apt install wireshark -y
     sudo dpkg-reconfigure wireshark-common
     sudo usermod -aG wireshark $USER
 
@@ -452,7 +448,8 @@ function InstallHttpie()
 
     sudo apt install httpie -y
 
-    sudo apt update && sudo apt -y upgrade httpie
+    sudo apt update
+    sudo apt -y upgrade httpie
 
     Success "Installed HTTPie"
 }
@@ -485,6 +482,23 @@ function InstallHump()
     Success "pyhumps; $Check"
 }
 
+function InstallDnsmasq()
+{
+    if ( which dnsmasq 1>/dev/null ); then
+        Success "dnsmasq;$Check"
+        return
+    fi
+
+    Info "Installing dnsmasq ..."
+    
+    sudo apt install dnsmasq -y
+    sudo systemctl stop systemd-resolved
+    sudo systemctl disable systemd-resolved
+    sudo systemctl restart dnsmasq
+
+    Success "Installed dnsmasq"
+}
+
 function InstallJq()
 {
     if ( which jq 1>/dev/null ); then
@@ -494,8 +508,7 @@ function InstallJq()
 
     Info "Installing jq ..."
 
-    sudo apt-get update
-    sudo apt-get install jq -y
+    sudo apt install jq -y
 
     Success "Installed jq"
 }
@@ -523,8 +536,7 @@ function InstallProgress()
 
     Info "Installing progress ..."
 
-    sudo apt-get update
-    sudo apt-get install progress -y
+    sudo apt install progress -y
 
     Success "Installed progress"
 }
@@ -567,7 +579,7 @@ function InstallBaobab()
 
     Info "Installing baobab ..."
 
-    sudo apt-get install -y baobab
+    sudo apt install -y baobab
 
     Success "Installed baobab"
 }
@@ -581,7 +593,7 @@ function InstallDconfEditor()
 
     Info "Installing dconf-editor ..."
 
-    sudo apt-get install -y dconf-editor
+    sudo apt install -y dconf-editor
 
     Success "Installed dconf-editor"
 }
@@ -595,7 +607,7 @@ function InstallSafeEye()
 
     Info "Installing safeeyes ..."
 
-    sudo apt-get install safeeyes -y
+    sudo apt install safeeyes -y
 
     Success "Installed safeeyes"
 }
@@ -611,7 +623,8 @@ function InstallWarp()
 
     curl https://pkg.cloudflareclient.com/pubkey.gpg | sudo gpg --yes --dearmor --output /usr/share/keyrings/cloudflare-warp-archive-keyring.gpg
     echo "deb [arch=amd64 signed-by=/usr/share/keyrings/cloudflare-warp-archive-keyring.gpg] https://pkg.cloudflareclient.com/ $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/cloudflare-client.list
-    sudo apt-get update && sudo apt-get install cloudflare-warp -y
+    sudo apt update
+    sudo apt install cloudflare-warp -y
 
     Success "Installed warp-cli"
 }
@@ -921,6 +934,7 @@ InstallTelnet
 InstallTrans
 InstallBeyondCompare
 InstallSshServer
+# InstallDnsmasq
 InstallJq
 # InstallCloc
 InstallProgress
