@@ -46,42 +46,7 @@ function IsFullStackDeveloper()
     return 1;
 }
 
-function InstallVpn()
-{
-    if [ ! -f /LocalSecrets/Vpn ]; then
-        sudo mkdir /LocalSecrets
-        sudo chmod 777 --preserve-root /LocalSecrets
-        Divide
-        Info Please enter your VPN username
-        Divide
-        read Username
-        Divide
-        Info Please enter your VPN password
-        Divide
-        read Password
-        Divide
-        echo $Username > /LocalSecrets/Vpn
-        echo $Password >> /LocalSecrets/Vpn
-        sudo chmod 777 --preserve-root /LocalSecrets/Vpn
-    fi
-
-    if ( which piactl 1>/dev/null ); then
-        Success "Private Internet Access;$Check"
-    else
-        Info "Installing Private Internet Access ..."
-
-        wget https://holism.blob.core.windows.net/downloads/pia.zip -O /Temp/pia.zip
-        sudo unzip /Temp/pia.zip
-        sudo chmod 777 --preserve-root /Temp/pia-linux-3.3.1-06924.run
-        sh /Temp/pia-linux-3.3.1-06924.run
-        sudo rm -rf /Temp/pia-linux-3.3.1-06924.run
-        sudo rm -rf /Temp/pia-linux.zip
-
-        piactl login /LocalSecrets/Vpn
-
-        Success "Installed Private Internet Access"
-    fi
-}
+sudo apt install curl -y
 
 function InstallChrome()
 {
