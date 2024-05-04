@@ -455,16 +455,14 @@ function InstallPip()
 
 function InstallInflect()
 {
-    pip install inflect 1>/dev/null
-    sudo apt install python3-inflect 1>/dev/null
+    pip install --break-system-packages inflect 1>/dev/null 2>&1
 
     Success "inflect; $Check"
 }
 
 function InstallHump()
 {
-    pip install pyhumps 1>/dev/null
-    sudo apt install python3-pyhumps 1>/dev/null
+    pip install --break-system-packages pyhumps 1>/dev/null 2>&1
 
     Success "pyhumps; $Check"
 }
