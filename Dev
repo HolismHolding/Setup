@@ -46,7 +46,24 @@ function IsFullStackDeveloper()
     return 1;
 }
 
-sudo apt install curl -y
+function ConfigureApt()
+{
+    echo "Acquire::http::Timeout \"5\";" | sudo tee /etc/apt/apt.conf.d/99timeout >/dev/null 2>&1
+}
+
+function InstallCurl()
+{
+    if ( which curl 1>/dev/null ); then
+        Success "curl;$Check"
+        return
+    fi
+
+    Info "Installing curl ..."
+
+    sudo apt install curl -y
+
+    Success "Installed curl"
+}
 
 function InstallChrome()
 {
@@ -881,7 +898,8 @@ Divide
 Info "Holism Installation"
 Divide
 
-# InstallVpn
+ConfigureApt
+InstallCurl
 InstallChrome
 InstallVsCode
 InstallVsCodeExtensionRemoteContainers
