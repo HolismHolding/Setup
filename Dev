@@ -49,6 +49,7 @@ function IsFullStackDeveloper()
 function ConfigureApt()
 {
     echo "Acquire::http::Timeout \"5\";" | sudo tee /etc/apt/apt.conf.d/99timeout >/dev/null 2>&1
+    sudo sed -i 's/ir\.archive\.ubuntu\.com/archive.ubuntu.com/g' /etc/apt/sources.list.d/ubuntu.sources
 }
 
 function InstallCurl()
