@@ -235,10 +235,12 @@ function InstallDockerCompose()
 
     Info "Installing Docker Compose ..."
 
-    sudo curl -L "https://github.com/docker/compose/releases/download/1.29.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
+    sudo mkdir -p $DOCKER_CONFIG/cli-plugins
+    sudo curl -SL https://github.com/docker/compose/releases/download/v2.27.0/docker-compose-linux-x86_64 -o $DOCKER_CONFIG/cli-plugins/docker-compose
+    sudo chmod +x --preserve-root $DOCKER_CONFIG/cli-plugins/docker-compose
 
-    sudo chmod +x --preserve-root /usr/local/bin/docker-compose
-    docker compose --version
+    docker compose version
 
     Success "Installed Docker Compose"
 }
@@ -454,6 +456,7 @@ function InstallPip()
 function InstallInflect()
 {
     pip install inflect 1>/dev/null
+    sudo apt install python3-inflect 1>/dev/null
 
     Success "inflect; $Check"
 }
@@ -461,6 +464,7 @@ function InstallInflect()
 function InstallHump()
 {
     pip install pyhumps 1>/dev/null
+    sudo apt install python3-pyhumps 1>/dev/null
 
     Success "pyhumps; $Check"
 }
