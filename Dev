@@ -228,7 +228,7 @@ function InstallDocker()
 
 function InstallDockerCompose()
 {
-    if ( which docker compose 1>/dev/null ); then
+    if docker compose &> /dev/null; then
         Success "Docker compose;$Check"
         return
     fi
