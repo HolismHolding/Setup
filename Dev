@@ -404,22 +404,9 @@ function InstallBashCompletion()
     BashCompletionUpdate
 }
 
-function InstallWireshark()
+function InstallMitmProxy()
 {
-    # todo: unattended installation
-    # https://askubuntu.com/questions/1275842/install-wireshark-without-confirm
-    if ( which wireshark 1>/dev/null ); then
-        Success "Wireshark;$Check"
-        return;
-    fi
 
-    Info "Installing Wireshark ..."
-
-    sudo apt install wireshark -y
-    sudo dpkg-reconfigure wireshark-common
-    sudo usermod -aG wireshark $USER
-
-    Success "Installed Wireshark"
 }
 
 function InstallHttpie()
@@ -931,7 +918,7 @@ InstallDconfEditor
 InstallSafeEye
 # InstallWarp
 InstallBashCompletion
-#InstallWireshark
+InstallMitmProxy
 InstallHttpie
 InstallPip
 InstallInflect
