@@ -245,17 +245,6 @@ function InstallDockerCompose()
     Success "Installed Docker Compose"
 }
 
-function RemoveAnyDesk()
-{
-    if ( which anydesk 1>/dev/null ); then
-        Info "Removing AnyDesk ..."
-        sudo apt-get remove --purge anydesk -y
-        sudo apt-get autoremove -y
-        sudo apt-get autoclean -y
-        sudo apt-get clean -y
-    fi
-}
-
 function InstallRustDesk()
 {
    if ( which rustdesk 1>/dev/null ); then
@@ -908,7 +897,6 @@ InstallGit
 InstallGitHubCli
 InstallDocker
 InstallDockerCompose
-RemoveAnyDesk
 InstallRustDesk
 InstallScreenRecorder
 InstallNginx
