@@ -249,10 +249,10 @@ function RemoveAnyDesk()
 {
     if ( which anydesk 1>/dev/null ); then
         Info "Removing AnyDesk ..."
-        sudo apt-get remove --purge anydesk
-        sudo apt-get autoremove
-        sudo apt-get autoclean
-        sudo apt-get clean
+        sudo apt-get remove --purge anydesk -y
+        sudo apt-get autoremove -y
+        sudo apt-get autoclean -y
+        sudo apt-get clean -y
     fi
 }
 
