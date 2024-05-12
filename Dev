@@ -245,21 +245,31 @@ function InstallDockerCompose()
     Success "Installed Docker Compose"
 }
 
-function InstallAnydesk()
+function RemoveAnyDesk()
 {
     if ( which anydesk 1>/dev/null ); then
-        Success "Anydesk;$Check"
+        Info "Removing AnyDesk ..."
+        sudo apt-get remove --purge anydesk
+        sudo apt-get autoremove
+        sudo apt-get autoclean
+        sudo apt-get clean
+    fi
+}
+
+function InstallRustDesk()
+{
+   if ( which rustdesk 1>/dev/null ); then
+        Success "RustDesk;$Check"
         return
     fi
 
-    Info "Installing AnyDesk ..."
+    Info "Installing RustDesk ..."
+    wget https://github.com/rustdesk/rustdesk/releases/download/1.2.3-2/rustdesk-1.2.3-2-x86_64.deb -O /Temp/RustDesk.deb
+    sudo chmod +x /Temp/RustDesk.deb
+    sudo apt install /Temp/RustDesk.deb -y
+    sudo rm -rf /Temp/RustDesk.deb
 
-    wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | sudo apt-key add -
-    echo "deb http://deb.anydesk.com/ all main" | sudo tee /etc/apt/sources.list.d/anydesk-stable.list
-    sudo apt update
-    sudo apt install anydesk -y
-
-    Success "Installed AnyDesk"
+    Success "Installed RustDesk"
 }
 
 function InstallScreenRecorder()
@@ -898,7 +908,8 @@ InstallGit
 InstallGitHubCli
 InstallDocker
 InstallDockerCompose
-InstallAnydesk
+RemoveAnyDesk
+InstallRustDesk
 InstallScreenRecorder
 InstallNginx
 InstallMkcert
