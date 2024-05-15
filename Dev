@@ -135,6 +135,12 @@ function InstallVsCodeExtensionCodeSpellChecker()
     Success "Installed Code Spell Checker Extension"
 }
 
+function InstallRemmin()
+{
+    sudo apt update
+    sudo apt install remmina remmina-plugin-rdp
+}
+
 function InstallAzureDataStudio()
 {
     if ( which azuredatastudio 1>/dev/null ); then
