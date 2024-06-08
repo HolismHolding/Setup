@@ -589,6 +589,20 @@ function InstallSafeEye()
     Success "Installed safeeyes"
 }
 
+function InstallStrechly()
+{
+    if ( which safeeyes 1>/dev/null ); then
+        Success "SafeEyes;$Check"
+        return
+    fi
+
+    Info "Installing safeeyes ..."
+
+    sudo apt install safeeyes -y
+
+    Success "Installed safeeyes"
+}
+
 function InstallWarp()
 {
     if ( which warp-cli 1>/dev/null ); then
