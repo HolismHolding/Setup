@@ -591,16 +591,19 @@ function InstallSafeEye()
 
 function InstallStrechly()
 {
-    if ( which safeeyes 1>/dev/null ); then
-        Success "SafeEyes;$Check"
+    if (  dpkg -l | grep -i stretchly 1>/dev/null ); then
+        Success "Strechly;$Check"
         return
     fi
 
-    Info "Installing safeeyes ..."
+    Info "Installing Strechly ..."
 
-    sudo apt install safeeyes -y
+    wget -q --show-progress $(curl -s https://api.github.com/repos/hovancik/stretchly/releases/latest | grep "browser_download_url.*amd64.deb" | cut -d : -f 2,3 | tr -d \")
+    debFiles=$(ls stretchly*.deb)
+    sudo dpkg -i $debFiles
+    sudo apt-get install -f -y
 
-    Success "Installed safeeyes"
+    Success "Installed Strechly"
 }
 
 function InstallWarp()
