@@ -584,7 +584,9 @@ function InstallSafeEye()
 
     Info "Installing safeeyes ..."
 
-    sudo apt install safeeyes -y
+    sudo add-apt-repository ppa:safeeyes-team/safeeyes -y
+    sudo apt-get update
+    sudo apt-get install safeeyes -y
 
     Success "Installed safeeyes"
 }
