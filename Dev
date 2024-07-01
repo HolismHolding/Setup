@@ -684,6 +684,7 @@ function DownloadVsCodeExtensions()
         sudo gunzip -v CSharp.gz
         sudo mv CSharp CSharp.vsix
         sudo mv CSharp.vsix /Temp/Extensions/
+        sudo chmod -R 777 --preserve-root /Temp/Extensions
 
         Success "Downloaded C# VS Code extension "
 
