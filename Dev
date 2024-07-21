@@ -668,12 +668,14 @@ function DownloadVsCodeExtensions()
 
         Info "Downloading C# VS Code extension ... "
 
+        sudo rm -rf /Temp/Extensions/CSharp.vsix
+        sudo chmod -R 777 --preserve-root /Temp/Extensions
         sudo mkdir -p /Temp/Extensions
         find /Temp -maxdepth 1 -name "*vspackage?target*" | xargs rm -rf
         ua="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:15.0) Gecko/20100101 Firefox/15.0.1"
         latestVersion=$(curl -s https://api.github.com/repos/dotnet/vscode-csharp/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
         latestVersion="${latestVersion#v}"
-        echo $latestVersion
+        Info "Version: $latestVersion"
         if [[ "$latestVersion" == "" ]]; then
             Error "C# VS Code extension's latest version could not be found"
             return
