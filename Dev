@@ -164,6 +164,20 @@ function InstallAzureDataStudio()
     Success "Installed Azure Data Studio"
 }
 
+function InstallAzureCli()
+{
+    if ( which az 1>/dev/null ); then
+        Success "az;$Check"
+        return
+    fi
+
+    Info "Installing Azure CLI ..."
+
+    curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
+
+    Success "Installed Azure CLI"
+}
+
 function InstallGit()
 {
     if ( which git 1>/dev/null ); then
