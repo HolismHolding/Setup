@@ -473,6 +473,11 @@ function InstallHump()
     Success "pyhumps; $Check"
 }
 
+function InstallLineProfiler()
+{
+    sudo apt install python3-line-profiler
+}
+
 function InstallDnsmasq()
 {
     if ( which dnsmasq 1>/dev/null ); then
@@ -969,6 +974,7 @@ InstallHttpie
 InstallPip
 InstallInflect
 InstallHump
+InstallLineProfiler
 
 if IsFullStackDeveloper; then
     DownloadVsCodeExtensions
