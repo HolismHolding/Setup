@@ -475,7 +475,7 @@ function InstallHump()
 
 function InstallLineProfiler()
 {
-    sudo apt install python3-line-profiler
+    sudo apt install python3-line-profiler 1>/dev/null 2>&1
 }
 
 function InstallDnsmasq()
