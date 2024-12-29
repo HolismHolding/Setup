@@ -281,6 +281,23 @@ function InstallRustDesk()
     Success "Installed RustDesk"
 }
 
+function InstallAnydesk()
+{
+    if ( which anydesk 1>/dev/null ); then
+        Success "Anydesk;$Check"
+        return
+    fi
+
+    Info "Installing AnyDesk ..."
+
+    wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | sudo apt-key add -
+    echo "deb http://deb.anydesk.com/ all main" | sudo tee /etc/apt/sources.list.d/anydesk-stable.list
+    sudo apt update
+    sudo apt install anydesk -y
+
+    Success "Installed AnyDesk"
+}
+
 function InstallScreenRecorder()
 {
    if ( which simplescreenrecorder 1>/dev/null ); then
