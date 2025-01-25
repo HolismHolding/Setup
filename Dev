@@ -722,23 +722,28 @@ function DownloadVsCodeExtensions()
         sudo gunzip -v CSharp.gz
         sudo mv CSharp CSharp.vsix
         sudo mv CSharp.vsix /Temp/Extensions/
-        latestDotNetToolVersion=$(curl -s https://api.github.com/repos/dotnet/vscode-dotnet-runtime/releases/latest | grep -oP '"tag_name": "\K(.*)(?=")')
-        latestDotNetToolVersion="${latestDotNetToolVersion#v}"
-        echo ".NET Install Tool Extension Version: $latestDotNetToolVersion"
-        if [[ "$latestDotNetToolVersion" == "" ]]; then
-            echo "Error: .NET Install Tool VS Code extension's latest version could not be found."
+        sudo rm -rf /Temp/Extensions/DotNetInstallTool.vsix
+        sudo chmod -R 777 --preserve-root /Temp/Extensions
+        sudo mkdir -p /Temp/Extensions
+        find /Temp -maxdepth 1 -name "*vspackage?target*" | xargs rm -rf
+        ua="Mozilla/5.0 (X11; Ubuntu; Linux x86_64; rv:15.0) Gecko/20100101 Firefox/15.0.1"
+        rawMetadata=$(curl -s -X POST -H "Content-Type: application/json" -H "Accept: application/json;api-version=3.0-preview.1" https://marketplace.visualstudio.com/_apis/public/gallery/extensionquery -d '{"filters":[{"criteria":[{"filterType":7,"value":"ms-dotnettools.vscode-dotnet-runtime"}],"pageNumber":1,"pageSize":1,"sortBy":0,"sortOrder":0}],"assetTypes":[],"flags":514}')
+        netInstallToolVersion=$(echo "$rawMetadata" | jq -r '.results[0].extensions[0].versions[0].version')
+        echo ".NET Install Tool Extension Version: $netInstallToolVersion"
+        if [[ "$netInstallToolVersion" == "" || "$netInstallToolVersion" == "null" ]]; then
+            echo "Error: No compatible .NET Install Tool VS Code extension version found."
             exit 1
         fi
         sudo wget --save-cookies cookies.txt --keep-session-cookies https://marketplace.visualstudio.com/items?itemName=ms-dotnettools.vscode-dotnet-runtime
-        sudo wget -U "$ua" --load-cookies cookies.txt https://marketplace.visualstudio.com/_apis/public/gallery/publishers/ms-dotnettools/vsextensions/vscode-dotnet-runtime/$latestDotNetToolVersion/vspackage?targetPlatform=linux-x64
-        sudo mv vspackage\?targetPlatform\=linux-x64 DotNetInstallTool.gz
+        sudo wget -U "$ua" --load-cookies cookies.txt https://marketplace.visualstudio.com/_apis/public/gallery/publishers/ms-dotnettools/vsextensions/vscode-dotnet-runtime/$netInstallToolVersion/vspackage
+        sudo mv vspackage DotNetInstallTool.gz
         sudo gunzip -v DotNetInstallTool.gz
-        sudo mv DotNetInstallTool DotNetInstallTool.vsix
-        sudo mv DotNetInstallTool.vsix /Temp/Extensions/
+        sudo mv DotNetInstallTool DotNetInstall.vsix
+        sudo mv DotNetInstall.vsix /Temp/Extensions/
         sudo chmod -R 777 --preserve-root /Temp/Extensions
+        echo "Extensions downloaded and saved to /Temp/Extensions."
 
         Success "Downloaded C# VS Code extension "
-
     fi
 }
 
