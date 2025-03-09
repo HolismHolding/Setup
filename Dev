@@ -164,6 +164,25 @@ function InstallAzureDataStudio()
     Success "Installed Azure Data Studio"
 }
 
+function InstallMongoCompass()
+{
+    echo "Downloading MongoDB Compass..."
+    wget https://downloads.mongodb.com/compass/mongodb-compass_1.45.4_amd64.deb -O mongodb-compass.deb
+    if [ $? -eq 0 ]; then
+        echo "Download completed successfully."
+    else
+        echo "Failed to download MongoDB Compass. Please check your internet connection."
+        exit 1
+    fi
+    echo "Installing MongoDB Compass..."
+    sudo dpkg -i mongodb-compass.deb
+    echo "Fixing dependencies..."
+    sudo apt-get install -f -y
+    echo "Cleaning up..."
+    rm mongodb-compass.deb
+    echo "MongoDB Compass installation complete! You can launch it by typing 'mongodb-compass' or searching for it in your application menu."    
+}
+
 function InstallAzureCli()
 {
     if ( which az 1>/dev/null ); then
