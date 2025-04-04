@@ -108,31 +108,33 @@ function InstallVsCode()
 function InstallVsCodeExtensionRemoteContainers()
 {
     if code --list-extensions | grep -q 'ms-vscode-remote.remote-containers'; then
-        code --install-extension ms-vscode-remote.remote-containers --force 2>&1 >/dev/null
-        Success "Remote Containers Extension;$Check"
+        timeout 10s code --install-extension ms-vscode-remote.remote-containers --force 2>&1 >/dev/null && \
+        Success "Remote Containers Extension;$Check" || \
+        Warning "Remote Containers Extension update timed out"
         return
     fi
 
     Info "Installing Remote Containers Extension..."
 
-    code --install-extension ms-vscode-remote.remote-containers
-
-    Success "Installed Remote Containers Extension"
+    timeout 10s code --install-extension ms-vscode-remote.remote-containers && \
+    Success "Installed Remote Containers Extension" || \
+    Warning "Failed to install Remote Containers Extension"
 }
 
 function InstallVsCodeExtensionCodeSpellChecker()
 {
     if code --list-extensions | grep -q 'streetsidesoftware.code-spell-checker'; then
-        code --install-extension streetsidesoftware.code-spell-checker --force 2>&1 >/dev/null
-        Success "Code Spell Checker Extension;$Check"
+        timeout 10s code --install-extension streetsidesoftware.code-spell-checker --force 2>&1 >/dev/null && \
+        Success "Code Spell Checker Extension;$Check" || \
+        Warning "Code Spell Checker Extension update timed out"
         return
     fi
 
     Info "Installing Code Spell Checker Extension..."
 
-    code --install-extension streetsidesoftware.code-spell-checker
-
-    Success "Installed Code Spell Checker Extension"
+    timeout 10s code --install-extension streetsidesoftware.code-spell-checker && \
+    Success "Installed Code Spell Checker Extension" || \
+    Warning "Failed to install Code Spell Checker Extension"
 }
 
 function InstallRemmin()
