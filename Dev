@@ -516,6 +516,20 @@ function InstallLineProfiler()
     sudo apt install python3-line-profiler 1>/dev/null 2>&1
 }
 
+function InstallNmap()
+{
+    if ( which nmap 1>/dev/null ); then
+        Success "nmap;$Check"
+        return
+    fi
+
+    Info "Installing nmap ..."
+    
+    sudo apt install nmap -y
+
+    Success "Installed nmap"
+}
+
 function InstallDnsmasq()
 {
     if ( which dnsmasq 1>/dev/null ); then
@@ -1032,6 +1046,7 @@ InstallPip
 InstallInflect
 InstallHump
 InstallLineProfiler
+InstallNmap
 
 if IsFullStackDeveloper; then
     DownloadVsCodeExtensions
