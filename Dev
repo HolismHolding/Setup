@@ -1011,6 +1011,14 @@ function SetTimeZone()
     Success "Configured Time Zone"
 }
 
+function SetInstallationDate() {
+    if [[ -f /InstallationDate ]]; then
+        return 0
+    fi
+
+    date +%s | sudo tee /InstallationDate > /dev/null
+}
+
 # SetDeveloperRole
 
 sudo echo ""
@@ -1056,6 +1064,7 @@ InstallInflect
 InstallHump
 InstallLineProfiler
 InstallNmap
+SetInstallationDate
 
 if IsFullStackDeveloper; then
     DownloadVsCodeExtensions
