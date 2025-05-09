@@ -1026,74 +1026,74 @@ cd /Temp
 Divide
 Info "Holism Installation"
 Divide
+DownloadVsCodeExtensions
+# ConfigureApt
+# InstallCurl
+# InstallChrome
+# InstallVsCode
+# InstallVsCodeExtensionRemoteContainers
+# InstallVsCodeExtensionCodeSpellChecker
+# InstallGit
+# InstallGitHubCli
+# InstallDocker
+# InstallDockerCompose
+# InstallRustDesk
+# InstallScreenRecorder
+# InstallNginx
+# InstallMkcert
+# InstallMicro
+# InstallTelnet
+# InstallTrans
+# InstallBeyondCompare
+# InstallSshServer
+# # InstallDnsmasq
+# InstallJq
+# # InstallCloc
+# InstallProgress
+# InstallRename
+# InstallParallel
+# InstallBaobab
+# InstallDconfEditor
+# InstallSafeEye
+# # InstallWarp
+# InstallBashCompletion
+# InstallMitmProxy
+# InstallHttpie
+# InstallPip
+# InstallInflect
+# InstallHump
+# InstallLineProfiler
+# InstallNmap
+# SetInstallationDate
 
-ConfigureApt
-InstallCurl
-InstallChrome
-InstallVsCode
-InstallVsCodeExtensionRemoteContainers
-InstallVsCodeExtensionCodeSpellChecker
-InstallGit
-InstallGitHubCli
-InstallDocker
-InstallDockerCompose
-InstallRustDesk
-InstallScreenRecorder
-InstallNginx
-InstallMkcert
-InstallMicro
-InstallTelnet
-InstallTrans
-InstallBeyondCompare
-InstallSshServer
-# InstallDnsmasq
-InstallJq
-# InstallCloc
-InstallProgress
-InstallRename
-InstallParallel
-InstallBaobab
-InstallDconfEditor
-InstallSafeEye
-# InstallWarp
-InstallBashCompletion
-InstallMitmProxy
-InstallHttpie
-InstallPip
-InstallInflect
-InstallHump
-InstallLineProfiler
-InstallNmap
-SetInstallationDate
+# if IsFullStackDeveloper; then
+#     DownloadVsCodeExtensions
+# fi
 
-if IsFullStackDeveloper; then
-    DownloadVsCodeExtensions
-fi
+# ConfigureNginx
+# RegisterHolismCommands
 
-ConfigureNginx
-RegisterHolismCommands
+# GiveAccessToRoot
+# # TestGitHubAccess
+# AddPersianInputSource
+# SetLocaleToEnglishUs
+# ConfigureKeyboard
+# SetFavoriteApps
+# SetChromeAsTheDefaultBrowser
+# DisableWayland
+# SetAppsToOpenMaximized
+# PreventAutoHideTheDock
+# IncreaseLimits
+# PreventDimmingAndSleeping
+# PreventMultiWorkspaces
+# TurnOffAutomaticScreenLock
+# SetThousandsSeparatorToCalculator
+# SetTimeZone
+# if [[ -d /HolismHolding/Commands/ConfigVsCode ]]; then
+#     /HolismHolding/Commands/ConfigVsCode
+# fi
 
-GiveAccessToRoot
-# TestGitHubAccess
-AddPersianInputSource
-SetLocaleToEnglishUs
-ConfigureKeyboard
-SetFavoriteApps
-SetChromeAsTheDefaultBrowser
-DisableWayland
-SetAppsToOpenMaximized
-PreventAutoHideTheDock
-IncreaseLimits
-PreventDimmingAndSleeping
-PreventMultiWorkspaces
-TurnOffAutomaticScreenLock
-SetThousandsSeparatorToCalculator
-SetTimeZone
-if [[ -d /HolismHolding/Commands/ConfigVsCode ]]; then
-    /HolismHolding/Commands/ConfigVsCode
-fi
-
-CloneInfra
+# CloneInfra
 # PullImages
 
 Divide
