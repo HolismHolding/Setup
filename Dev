@@ -1,41 +1,35 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
-# todo: use timeout to kill apt update after some time
+set -euo pipefail
 
-red=`tput setaf 1`
-green=`tput setaf 2`
-cyan=`tput setaf 6`
-magenta=`tput setaf 5`
-yellow=`tput setaf 3`
-reset=`tput sgr0`
+readonly red=$(tput setaf 1)
+readonly green=$(tput setaf 2)
+readonly cyan=$(tput setaf 6)
+readonly yellow=$(tput setaf 3)
+readonly reset=$(tput sgr0)
 
-Check="\xE2\x9C\x94"
+readonly Check=$'\xE2\x9C\x94'
 
-function Success()
-{
-    echo -e "${green}$*${reset}" | column -t -s ';'
-}
+Success() { printf "${green}%s${reset}\n" "$*"; }
+Info() { printf "${cyan}%s${reset}\n" "$*"; }
+Warning() { printf "${yellow}%s${reset}\n" "$*"; }
+Error() { printf "${red}%s${reset}\n" "$*" >&2; exit 1; }
+Divide() { printf "\n${magenta}----------${reset}\n\n"; }
 
-function Info()
-{
-    echo "${cyan}$*${reset}"
-}
-
-function Warning()
-{
-    echo "${yellow}$*${reset}"
-}
-
-function Error()
-{
-    echo "${red}$*${reset}"
-}
-
-function Divide()
-{
-    echo ""
-    echo "${magenta}----------${reset}"
-    echo ""
+Install() {
+    local commandName="$1"
+    local installFunction="${2:-}"
+    if command -v "$commandName" &>/dev/null; then
+        Success "$commandName $Check"
+        return
+    fi
+    Info "Installing $commandName ..."
+    if [[ -n "$installFunction" ]]; then
+        "$installFunction" || Error "Failed to install $commandName"
+    else
+        apt-get install -y "$commandName" || Error "Failed to install $commandName"
+    fi
+    Success "Installed $commandName"
 }
 
 function IsFullStackDeveloper()
@@ -52,57 +46,22 @@ function ConfigureApt()
     sudo sed -i 's/ir\.archive\.ubuntu\.com/archive.ubuntu.com/g' /etc/apt/sources.list.d/ubuntu.sources
 }
 
-function InstallCurl()
-{
-    if ( which curl 1>/dev/null ); then
-        Success "curl;$Check"
-        return
-    fi
+function InstallChrome() {
+    wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
+    sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list'
 
-    Info "Installing curl ..."
-
-    sudo apt install curl -y
-
-    Success "Installed curl"
+    sudo apt-get update
+    sudo apt-get install -y google-chrome-stable
 }
 
-function InstallChrome()
-{
-    if ( which google-chrome 1>/dev/null ); then
-        Success "Chrome;$Check"
-        return
-    fi
-
-    Info "Installing Google Chrome ..."
-
-    sudo apt update
-    #sudo apt upgrade
-    wget https://dl.google.com/linux/direct/google-chrome-stable_current_amd64.deb -O chrome
-
-    sudo dpkg -i chrome
-
-    Success "Installed Google Chrome"
-}
-
-function InstallVsCode()
-{
-    if ( which code 1>/dev/null ); then
-        Success "VS Code;$Check"
-        return
-    fi
-
-    Info "Installing VS Code ..."
-
+function InstallVsCode() {
     wget -qO- https://packages.microsoft.com/keys/microsoft.asc | gpg --dearmor > packages.microsoft.gpg
     sudo install -o root -g root -m 644 packages.microsoft.gpg /etc/apt/trusted.gpg.d/
     sudo sh -c 'echo "deb [arch=amd64,arm64,armhf signed-by=/etc/apt/trusted.gpg.d/packages.microsoft.gpg] https://packages.microsoft.com/repos/code stable main" > /etc/apt/sources.list.d/vscode.list'
     rm -f packages.microsoft.gpg
 
-    sudo apt install apt-transport-https
-    sudo apt update
-    sudo apt install code -y
-
-    Success "Installed VS Code"
+    sudo apt-get update
+    sudo apt-get install -y apt-transport-https code
 }
 
 function InstallVsCodeExtensionRemoteContainers()
@@ -137,33 +96,14 @@ function InstallVsCodeExtensionCodeSpellChecker()
     Warning "Failed to install Code Spell Checker Extension"
 }
 
-function InstallRemmin()
-{
-    sudo apt update
-    sudo apt install remmina remmina-plugin-rdp
+function InstallRemmin() {
+    sudo apt-get install -y remmina remmina-plugin-rdp
 }
 
-function InstallAzureDataStudio()
-{
-    if ( which azuredatastudio 1>/dev/null ); then
-        Success "Azure Data Studio;$Check"
-        return
-    fi
-
-    Info "Installing Azure Data Studio ..."
-
-    if [ -f /media/$USER/Repository/Files/ads.deb ]; then
-        sudo cp /media/$USER/Repository/Files/ads.deb /Temp
-    else
-        wget https://go.microsoft.com/fwlink/?linkid=2251736
-        mv index.html\?linkid\=2251736 /Temp/ads.deb
-    fi
-
-    sudo apt install /Temp/ads.deb -y
-    # If not connecting => [update OpenSSL](https://github.com/microsoft/azuredatastudio/issues/13457#issuecomment-832202549)
-    rm -rf /Temp/ads.deb
-
-    Success "Installed Azure Data Studio"
+function InstallAzureDataStudio() {
+    wget -O /Temp/ads.deb "https://go.microsoft.com/fwlink/?linkid=2251736"
+    sudo apt-get install -y /Temp/ads.deb
+    rm -f /Temp/ads.deb
 }
 
 function InstallMongoCompass()
@@ -194,259 +134,80 @@ function InstallMongoCompass()
     echo "MongoDB Compass installation complete! You can launch it by typing 'mongodb-compass' or searching for it in your application menu."
 }
 
-function InstallAzureCli()
-{
-    if ( which az 1>/dev/null ); then
-        Success "az;$Check"
-        return
-    fi
-
-    Info "Installing Azure CLI ..."
-
+function InstallAzureCli() {
     curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
-
-    Success "Installed Azure CLI"
 }
 
-function InstallGit()
-{
-    if ( which git 1>/dev/null ); then
-        Success "Git;$Check"
-        return
-    fi
-
-    Info "Installing Git ..."
-
-    sudo apt install git -y
+function InstallGit() {
+    sudo apt-get install -y git
     git config --global init.defaultBranch main
-
-    Success "Installed Git"
 }
 
-function InstallGitHubCli()
-{
-    if ( which gh 1>/dev/null ); then
-        Success "GitHub CLI;$Check"
-        return
-    fi
-
-    Info "Installing GitHub CLI ..."
-
-    sudo mkdir -p -m 755 /etc/apt/keyrings && wget -qO- https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null \
-    && sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg \
-    && echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null \
-    && sudo apt update \
-    && sudo apt install gh -y
-
-    Success "Installed GitHub CLI"
+function InstallGitHubCli() {
+    sudo mkdir -p -m 755 /etc/apt/keyrings
+    wget -qO- https://cli.github.com/packages/githubcli-archive-keyring.gpg | sudo tee /etc/apt/keyrings/githubcli-archive-keyring.gpg > /dev/null
+    sudo chmod go+r /etc/apt/keyrings/githubcli-archive-keyring.gpg
+    echo "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/githubcli-archive-keyring.gpg] https://cli.github.com/packages stable main" | sudo tee /etc/apt/sources.list.d/github-cli.list > /dev/null
+    sudo apt-get update
+    sudo apt-get install -y gh
 }
 
-function InstallDocker()
-{
-    if ( which docker 1>/dev/null ); then
-        Success "Docker;$Check"
-        return
-    fi
-
-    Info "Installing Docker ..."
-
-    sudo apt install \
-        apt-transport-https \
-        ca-certificates \
-        curl \
-        gnupg \
-        lsb-release -y
-
+function InstallDocker() {
+    sudo apt-get install -y apt-transport-https ca-certificates curl gnupg lsb-release
     curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-
-    echo \
-    "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu \
-    $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
-
-    sudo apt update
-    sudo apt install docker-ce docker-ce-cli containerd.io -y
+    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    sudo apt-get update
+    sudo apt-get install -y docker-ce docker-ce-cli containerd.io
     sudo docker run hello-world
-
-    # sudo gpasswd -a $USER docker
-    # newgrp docker
-    # sudo groupadd docker
-    # sudo usermod -aG docker ${USER}
-    # sudo usermod -aG docker $USER
-
-    Success "Installed Docker"
 }
 
-function InstallDockerCompose()
-{
-    if docker compose &> /dev/null; then
-        Success "Docker compose;$Check"
-        return
-    fi
-
-    Info "Installing Docker Compose ..."
-
+function InstallDockerCompose() {
     DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
-    sudo mkdir -p $DOCKER_CONFIG/cli-plugins
-    sudo curl -SL https://github.com/docker/compose/releases/download/v2.27.0/docker-compose-linux-x86_64 -o $DOCKER_CONFIG/cli-plugins/docker-compose
-    sudo chmod +x --preserve-root $DOCKER_CONFIG/cli-plugins/docker-compose
-
+    sudo mkdir -p "$DOCKER_CONFIG/cli-plugins"
+    sudo curl -SL https://github.com/docker/compose/releases/download/v2.27.0/docker-compose-linux-x86_64 -o "$DOCKER_CONFIG/cli-plugins/docker-compose"
+    sudo chmod +x --preserve-root "$DOCKER_CONFIG/cli-plugins/docker-compose"
     docker compose version
-
-    Success "Installed Docker Compose"
 }
 
-function InstallRustDesk()
-{
-   if ( which rustdesk 1>/dev/null ); then
-        Success "RustDesk;$Check"
-        return
-    fi
-
-    Info "Installing RustDesk ..."
+function InstallRustDesk() {
     wget https://github.com/rustdesk/rustdesk/releases/download/1.2.3-2/rustdesk-1.2.3-2-x86_64.deb -O /Temp/RustDesk.deb
     sudo chmod +x /Temp/RustDesk.deb
-    sudo apt install /Temp/RustDesk.deb -y
-    sudo rm -rf /Temp/RustDesk.deb
-
-    Success "Installed RustDesk"
+    sudo apt-get install -y /Temp/RustDesk.deb
+    sudo rm -f /Temp/RustDesk.deb
 }
 
-function InstallAnydesk()
-{
-    if ( which anydesk 1>/dev/null ); then
-        Success "Anydesk;$Check"
-        return
-    fi
-
-    Info "Installing AnyDesk ..."
-
+function InstallAnydesk() {
     wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | sudo apt-key add -
     echo "deb http://deb.anydesk.com/ all main" | sudo tee /etc/apt/sources.list.d/anydesk-stable.list
-    sudo apt update
-    sudo apt install anydesk -y
-
-    Success "Installed AnyDesk"
+    sudo apt-get update
+    sudo apt-get install -y anydesk
 }
 
-function InstallScreenRecorder()
-{
-   if ( which simplescreenrecorder 1>/dev/null ); then
-        Success "simplescreenrecorder;$Check"
-        return
-    fi
-
-    Info "Installing simplescreenrecorder ..."
-
-    sudo apt install simplescreenrecorder -y
-
-    Success "Installed simplescreenrecorder"
-}
-
-function InstallNginx()
-{
-    if ( which nginx 1>/dev/null ); then
-        Success "Nginx;$Check"
-        return
-    fi
-
-    Info "Installing Nginx ..."
-
-    sudo apt install nginx -y
-    sudo nginx -v
-
-    Success "Installed Nginx"
-}
-
-function InstallMkcert()
-{
-    if ( which mkcert 1>/dev/null ); then
-        mkcert -install 2>/dev/null
-        Success "Mkcert;$Check"
-        return
-    fi
-
-    Info "Installing Mkcert ..."
-
-    sudo apt install libnss3-tools
+function InstallMkcert() {
+    sudo apt-get install -y libnss3-tools
     wget https://github.com/FiloSottile/mkcert/releases/download/v1.4.4/mkcert-v1.4.4-linux-amd64 -O mkcert
     sudo cp mkcert /usr/local/bin/mkcert
     sudo chmod +x --preserve-root /usr/local/bin/mkcert
     mkcert -install
-
-    Success "Installed Mkcert"
 }
 
-function InstallMicro()
-{
-    if ( which micro 1>/dev/null ); then
-        Success "Micro;$Check"
-        return
-    fi
-
-    Info "Installing Micro ..."
-
+function InstallMicro() {
     sudo chmod -R 777 --preserve-root /usr/local/bin
     cd /usr/local/bin
     sudo curl https://getmic.ro | bash
-
-    Success "Installed Micro"
 }
 
-function InstallTelnet()
-{
-    if ( which telnet 1>/dev/null ); then
-        Success "Telnet;$Check"
-        return
-    fi
-
-    Info "Installing Telnet ..."
-
-    sudo apt install telnet -y
-
-    Success "Installed Telnet"
+function InstallTrans() {
+    sudo apt-get install -y translate-shell
 }
 
-function InstallTrans()
-{
-    if ( which trans 1>/dev/null ); then
-        Success "Trans;$Check"
-        return
-    fi
-
-    Info "Installing Trans ..."
-
-    sudo apt install translate-shell -y
-
-    Success "Installed Trans"
-}
-
-function InstallBeyondCompare()
-{
-    if ( which bcompare 1>/dev/null ); then
-        Success "Beyond Compare;$Check"
-        return
-    fi
-
-    Info "Installing Beyond Compare ..."
-
+function InstallBeyondCompare() {
     wget https://www.scootersoftware.com/files/bcompare-4.4.7.28397_amd64.deb
-    sudo apt install ./bcompare-4.4.7.28397_amd64.deb
-
-    Success "Installed Beyond Compare"
+    sudo apt-get install -y ./bcompare-4.4.7.28397_amd64.deb
 }
 
-function InstallSshServer()
-{
-    if ( which sshd 1>/dev/null ); then
-        Success "SSH Server;$Check"
-        return;
-    fi
-
-    Info "Installing SSH Server ..."
-
-    sudo apt install openssh-server -y
-
-    Success "Installed SSH Server"
+function InstallSshServer() {
+    sudo apt-get install -y openssh-server
 }
 
 function InstallBashCompletion()
@@ -472,7 +233,7 @@ function InstallBashCompletion()
 
 function InstallMitmProxy()
 {
-    Error "Installing MitmProxy ..."
+    Warning "Installing MitmProxy ..."
 }
 
 function InstallHttpie()
@@ -1027,24 +788,26 @@ Divide
 Info "Holism Installation"
 Divide
 ConfigureApt
-InstallCurl
-InstallChrome
-InstallVsCode
+Install curl
+Install chrome InstallChrome
+Install code InstallVsCode
 InstallVsCodeExtensionRemoteContainers
 InstallVsCodeExtensionCodeSpellChecker
-InstallGit
-InstallGitHubCli
-InstallDocker
-InstallDockerCompose
-InstallRustDesk
-InstallScreenRecorder
-InstallNginx
-InstallMkcert
-InstallMicro
-InstallTelnet
-InstallTrans
-InstallBeyondCompare
-InstallSshServer
+Install git InstallGit
+Install gh InstallGitHubCli
+Install docker InstallDocker
+Install docker-compose InstallDockerCompose
+Install rustdesk InstallRustDesk
+Install anydesk InstallAnydesk
+Install simplescreenrecorder
+Install nginx
+Install telnet
+Install mkcert InstallMkcert
+Install micro InstallMicro
+Install trans InstallTrans
+Install bcompare InstallBeyondCompare
+Install sshd InstallSshServer
+
 # InstallDnsmasq
 InstallJq
 # InstallCloc
