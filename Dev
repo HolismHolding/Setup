@@ -18,17 +18,25 @@ Divide() { printf "\n${magenta}----------${reset}\n\n"; }
 
 Install() {
     local commandName="$1"
-    local installFunction="${2:-}"
+    local secondArg="${2:-}"
+
     if command -v "$commandName" &>/dev/null; then
         Success "$commandName $Check"
         return
     fi
+
     Info "Installing $commandName ..."
-    if [[ -n "$installFunction" ]]; then
-        "$installFunction" || Error "Failed to install $commandName"
+
+    if [[ -n "$secondArg" ]]; then
+        if declare -f "$secondArg" &>/dev/null; then
+            "$secondArg" || Error "Failed to install $commandName"
+        else
+            sudo apt-get install -y "$secondArg" || Error "Failed to install $commandName"
+        fi
     else
-        apt-get install -y "$commandName" || Error "Failed to install $commandName"
+        sudo apt-get install -y "$commandName" || Error "Failed to install $commandName"
     fi
+
     Success "Installed $commandName"
 }
 
@@ -197,17 +205,9 @@ function InstallMicro() {
     sudo curl https://getmic.ro | bash
 }
 
-function InstallTrans() {
-    sudo apt-get install -y translate-shell
-}
-
 function InstallBeyondCompare() {
     wget https://www.scootersoftware.com/files/bcompare-4.4.7.28397_amd64.deb
     sudo apt-get install -y ./bcompare-4.4.7.28397_amd64.deb
-}
-
-function InstallSshServer() {
-    sudo apt-get install -y openssh-server
 }
 
 function InstallBashCompletion()
@@ -236,37 +236,6 @@ function InstallMitmProxy()
     Warning "Installing MitmProxy ..."
 }
 
-function InstallHttpie()
-{
-    if ( which http 1>/dev/null ); then
-        Success "HTTPie;$Check"
-        return;
-    fi
-
-    Info "Installing HTTPie ..."
-
-    sudo apt install httpie -y
-
-    sudo apt update
-    sudo apt -y upgrade httpie
-
-    Success "Installed HTTPie"
-}
-
-function InstallPip()
-{
-    if ( which pip 1>/dev/null ); then
-        Success "pip;$Check"
-        return;
-    fi
-
-    Info "Installing pip ..."
-
-    sudo apt install python3-pip -y
-
-    Success "Installed pip"
-}
-
 function InstallInflect()
 {
     pip install --break-system-packages inflect 1>/dev/null 2>&1
@@ -286,184 +255,31 @@ function InstallLineProfiler()
     sudo apt install python3-line-profiler 1>/dev/null 2>&1
 }
 
-function InstallNmap()
-{
-    if ( which nmap 1>/dev/null ); then
-        Success "nmap;$Check"
-        return
-    fi
-
-    Info "Installing nmap ..."
-    
-    sudo apt install nmap -y
-
-    Success "Installed nmap"
-}
-
-function InstallDnsmasq()
-{
-    if ( which dnsmasq 1>/dev/null ); then
-        Success "dnsmasq;$Check"
-        return
-    fi
-
-    Info "Installing dnsmasq ..."
-    
+InstallDnsmasq() {
     sudo apt install dnsmasq -y
     sudo systemctl stop systemd-resolved
     sudo systemctl disable systemd-resolved
     sudo systemctl restart dnsmasq
-
-    Success "Installed dnsmasq"
 }
 
-function InstallJq()
-{
-    if ( which jq 1>/dev/null ); then
-        Success "JQ;$Check"
-        return
-    fi
-
-    Info "Installing jq ..."
-
-    sudo apt install jq -y
-
-    Success "Installed jq"
-}
-
-function InstallCloc()
-{
-    if ( which cloc 1>/dev/null ); then
-        Success "CLOC;$Check"
-        return
-    fi
-
-    Info "Installing cloc ..."
-
-    sudo apt install cloc -y
-
-    Success "Installed cloc"
-}
-
-function InstallProgress()
-{
-    if ( which progress 1>/dev/null ); then
-        Success "Progress;$Check"
-        return
-    fi
-
-    Info "Installing progress ..."
-
-    sudo apt install progress -y
-
-    Success "Installed progress"
-}
-
-function InstallRename()
-{
-    if ( which rename 1>/dev/null ); then
-        Success "Rename;$Check"
-        return
-    fi
-
-    Info "Installing rename ..."
-
-    sudo apt install rename -y
-
-    Success "Installed rename"
-}
-
-function InstallParallel()
-{
-    if ( which parallel 1>/dev/null ); then
-        Success "Parallel;$Check"
-        return
-    fi
-
-    Info "Installing parallel ..."
-
-    sudo apt install parallel -y
-    ulimit -n `ulimit -Hn`
-
-    Success "Installed parallel"
-}
-
-function InstallBaobab()
-{
-    if ( which baobab 1>/dev/null ); then
-        Success "Baobab;$Check"
-        return
-    fi
-
-    Info "Installing baobab ..."
-
-    sudo apt install -y baobab
-
-    Success "Installed baobab"
-}
-
-function InstallDconfEditor()
-{
-    if ( which dconf-editor 1>/dev/null ); then
-        Success "DconfEditor;$Check"
-        return
-    fi
-
-    Info "Installing dconf-editor ..."
-
-    sudo apt install -y dconf-editor
-
-    Success "Installed dconf-editor"
-}
-
-function InstallSafeEye()
-{
-    if ( which safeeyes 1>/dev/null ); then
-        Success "SafeEyes;$Check"
-        return
-    fi
-
-    Info "Installing safeeyes ..."
-
+InstallSafeEye() {
     sudo add-apt-repository ppa:safeeyes-team/safeeyes -y
     sudo apt-get update
     sudo apt-get install safeeyes -y
-
-    Success "Installed safeeyes"
 }
 
-function InstallStrechly()
-{
-    if (  dpkg -l | grep -i stretchly 1>/dev/null ); then
-        Success "Strechly;$Check"
-        return
-    fi
-
-    Info "Installing Strechly ..."
-
+InstallStrechly() {
     wget -q --show-progress $(curl -s https://api.github.com/repos/hovancik/stretchly/releases/latest | grep "browser_download_url.*amd64.deb" | cut -d : -f 2,3 | tr -d \")
     debFiles=$(ls stretchly*.deb)
     sudo dpkg -i $debFiles
     sudo apt-get install -f -y
-
-    Success "Installed Strechly"
 }
 
-function InstallWarp()
-{
-    if ( which warp-cli 1>/dev/null ); then
-        Success "Warp;$Check"
-        return
-    fi
-
-    Info "Installing warp-cli ..."
-
+InstallWarp() {
     curl https://pkg.cloudflareclient.com/pubkey.gpg | sudo gpg --yes --dearmor --output /usr/share/keyrings/cloudflare-warp-archive-keyring.gpg
     echo "deb [arch=amd64 signed-by=/usr/share/keyrings/cloudflare-warp-archive-keyring.gpg] https://pkg.cloudflareclient.com/ $(lsb_release -cs) main" | sudo tee /etc/apt/sources.list.d/cloudflare-client.list
     sudo apt update
     sudo apt install cloudflare-warp -y
-
-    Success "Installed warp-cli"
 }
 
 function ConfigureNginx()
@@ -804,28 +620,30 @@ Install nginx
 Install telnet
 Install mkcert InstallMkcert
 Install micro InstallMicro
-Install trans InstallTrans
+Install trans translate-shell
 Install bcompare InstallBeyondCompare
-Install sshd InstallSshServer
+Install sshd openssh-server
+Install http httpie
+Install pip python3-pip
+Install nmap
+Install jq
+Install cloc
+Install progress
+Install rename
+Install parallel
+Install baobab
+Install dconf-editor
 
-# InstallDnsmasq
-InstallJq
-# InstallCloc
-InstallProgress
-InstallRename
-InstallParallel
-InstallBaobab
-InstallDconfEditor
-InstallSafeEye
-# InstallWarp
+# Install dnsmasq InstallDnsmasq
+Install safeeyes InstallSafeEye
+# Install stretchly InstallStrechly
+# Install warp-cli InstallWarp
+
 InstallBashCompletion
 InstallMitmProxy
-InstallHttpie
-InstallPip
 InstallInflect
 InstallHump
 InstallLineProfiler
-InstallNmap
 SetInstallationDate
 
 if IsFullStackDeveloper; then
