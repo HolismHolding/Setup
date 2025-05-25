@@ -596,6 +596,15 @@ function SetInstallationDate() {
     date +%s | sudo tee /InstallationDate > /dev/null
 }
 
+ConfigurePythonCore()
+{
+    scriptsPath="/HolismHolding/Scripts/Python"
+    sitePackages=$(python3 -m site --user-site)
+    mkdir -p "$sitePackages"
+    echo "$scriptsPath" > "$sitePackages/holism.pth"
+    Success "Configured Python core path"
+}
+
 # SetDeveloperRole
 
 sudo echo ""
@@ -669,6 +678,7 @@ PreventMultiWorkspaces
 TurnOffAutomaticScreenLock
 SetThousandsSeparatorToCalculator
 SetTimeZone
+ConfigurePythonCore
 if [[ -d /HolismHolding/Commands/ConfigVsCode ]]; then
     /HolismHolding/Commands/ConfigVsCode
 fi
