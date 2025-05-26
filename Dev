@@ -6,6 +6,7 @@ readonly red=$(tput setaf 1)
 readonly green=$(tput setaf 2)
 readonly cyan=$(tput setaf 6)
 readonly yellow=$(tput setaf 3)
+readonly magenta=$(tput setaf 5)
 readonly reset=$(tput sgr0)
 
 readonly Check=$'\xE2\x9C\x94'
@@ -55,9 +56,10 @@ function ConfigureApt()
 }
 
 function InstallChrome() {
-    wget -q -O - https://dl.google.com/linux/linux_signing_key.pub | sudo apt-key add -
-    sudo sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" > /etc/apt/sources.list.d/google-chrome.list'
-
+    Info "Chrome here"
+    exit
+    curl -fsSL https://dl.google.com/linux/linux_signing_key.pub | sudo tee /usr/share/keyrings/google-chrome.gpg > /dev/null
+    echo 'deb [arch=amd64 signed-by=/usr/share/keyrings/google-chrome.gpg] http://dl.google.com/linux/chrome/deb/ stable main' | sudo tee /etc/apt/sources.list.d/google-chrome.list > /dev/null
     sudo apt-get update
     sudo apt-get install -y google-chrome-stable
 }
@@ -76,7 +78,7 @@ function InstallVsCodeExtensionRemoteContainers()
 {
     if code --list-extensions | grep -q 'ms-vscode-remote.remote-containers'; then
         timeout 50s code --install-extension ms-vscode-remote.remote-containers --force 2>&1 >/dev/null && \
-        Success "Remote Containers Extension;$Check" || \
+        Success "Remote Containers Extension $Check" || \
         Warning "Remote Containers Extension update timed out"
         return
     fi
@@ -92,7 +94,7 @@ function InstallVsCodeExtensionCodeSpellChecker()
 {
     if code --list-extensions | grep -q 'streetsidesoftware.code-spell-checker'; then
         timeout 50s code --install-extension streetsidesoftware.code-spell-checker --force 2>&1 >/dev/null && \
-        Success "Code Spell Checker Extension;$Check" || \
+        Success "Code Spell Checker Extension $Check" || \
         Warning "Code Spell Checker Extension update timed out"
         return
     fi
@@ -161,20 +163,17 @@ function InstallGitHubCli() {
 }
 
 function InstallDocker() {
-    sudo apt-get install -y apt-transport-https ca-certificates curl gnupg lsb-release
-    curl -fsSL https://download.docker.com/linux/ubuntu/gpg | sudo gpg --dearmor -o /usr/share/keyrings/docker-archive-keyring.gpg
-    echo "deb [arch=amd64 signed-by=/usr/share/keyrings/docker-archive-keyring.gpg] https://download.docker.com/linux/ubuntu $(lsb_release -cs) stable" | sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
     sudo apt-get update
-    sudo apt-get install -y docker-ce docker-ce-cli containerd.io
-    sudo docker run hello-world
-}
-
-function InstallDockerCompose() {
-    DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
-    sudo mkdir -p "$DOCKER_CONFIG/cli-plugins"
-    sudo curl -SL https://github.com/docker/compose/releases/download/v2.27.0/docker-compose-linux-x86_64 -o "$DOCKER_CONFIG/cli-plugins/docker-compose"
-    sudo chmod +x --preserve-root "$DOCKER_CONFIG/cli-plugins/docker-compose"
-    docker compose version
+    sudo apt-get install ca-certificates curl
+    sudo install -m 0755 -d /etc/apt/keyrings
+    sudo curl -fsSL https://download.docker.com/linux/ubuntu/gpg -o /etc/apt/keyrings/docker.asc
+    sudo chmod a+r /etc/apt/keyrings/docker.asc
+    echo \
+    "deb [arch=$(dpkg --print-architecture) signed-by=/etc/apt/keyrings/docker.asc] https://download.docker.com/linux/ubuntu \
+    $(. /etc/os-release && echo "${UBUNTU_CODENAME:-$VERSION_CODENAME}") stable" | \
+    sudo tee /etc/apt/sources.list.d/docker.list > /dev/null
+    sudo apt-get update
+    sudo apt-get install docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 }
 
 function InstallRustDesk() {
@@ -185,8 +184,8 @@ function InstallRustDesk() {
 }
 
 function InstallAnydesk() {
-    wget -qO - https://keys.anydesk.com/repos/DEB-GPG-KEY | sudo apt-key add -
-    echo "deb http://deb.anydesk.com/ all main" | sudo tee /etc/apt/sources.list.d/anydesk-stable.list
+    curl -fsSL https://keys.anydesk.com/repos/DEB-GPG-KEY | sudo tee /usr/share/keyrings/anydesk.gpg > /dev/null
+    echo "deb [signed-by=/usr/share/keyrings/anydesk.gpg] http://deb.anydesk.com/ all main" | sudo tee /etc/apt/sources.list.d/anydesk-stable.list > /dev/null
     sudo apt-get update
     sudo apt-get install -y anydesk
 }
@@ -614,14 +613,13 @@ Info "Holism Installation"
 Divide
 ConfigureApt
 Install curl
-Install chrome InstallChrome
+Install google-chrome InstallChrome
 Install code InstallVsCode
 InstallVsCodeExtensionRemoteContainers
 InstallVsCodeExtensionCodeSpellChecker
 Install git InstallGit
 Install gh InstallGitHubCli
 Install docker InstallDocker
-Install docker-compose InstallDockerCompose
 Install rustdesk InstallRustDesk
 Install anydesk InstallAnydesk
 Install simplescreenrecorder
@@ -684,7 +682,7 @@ if [[ -d /HolismHolding/Commands/ConfigVsCode ]]; then
 fi
 
 CloneInfra
-PullImages
+# PullImages
 
 Divide
 
