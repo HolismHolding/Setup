@@ -595,13 +595,17 @@ function SetInstallationDate() {
     date +%s | sudo tee /InstallationDate > /dev/null
 }
 
-ConfigurePythonCore()
-{
+ConfigurePythonCore() {
     scriptsPath="/HolismHolding/Scripts/Python"
     sitePackages=$(python3 -m site --user-site)
     mkdir -p "$sitePackages"
     echo "$scriptsPath" > "$sitePackages/holism.pth"
     Success "Configured Python core path"
+}
+
+ConfigureDockerForUser() {
+    sudo mkdir -p ~/.docker
+    sudo chown -R $(whoami):$(whoami) ~/.docker
 }
 
 # SetDeveloperRole
