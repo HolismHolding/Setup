@@ -14,7 +14,7 @@ readonly Check=$'\xE2\x9C\x94'
 Success() { printf "${green}%s${reset}\n" "$*"; }
 Info() { printf "${cyan}%s${reset}\n" "$*"; }
 Warning() { printf "${yellow}%s${reset}\n" "$*"; }
-Error() { printf "${red}%s${reset}\n" "$*" >&2; exit 1; }
+Error() { printf "${red}%s${reset}\n" "$*" >&2; }
 Divide() { printf "\n${magenta}----------${reset}\n\n"; }
 
 Install() {
