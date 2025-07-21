@@ -152,6 +152,15 @@ function InstallAzureCli() {
     fi
 }
 
+function InstallRsync() {
+        if command -v rsync >/dev/null 2>&1; then
+        Success "Rsync;$Check"
+    else
+        echo "Rsync Installing..."
+        curl https://rclone.org/install.sh | sudo bash
+    fi
+}
+
 function InstallGit() {
     sudo apt-get install -y git
     git config --global init.defaultBranch main
@@ -664,6 +673,7 @@ InstallInflect
 InstallHump
 InstallLineProfiler
 InstallAzureCli
+InstallRsync
 SetInstallationDate
 
 # if IsFullStackDeveloper; then
