@@ -152,11 +152,11 @@ function InstallAzureCli() {
     fi
 }
 
-function InstallRsync() {
-        if command -v rsync >/dev/null 2>&1; then
-        Success "Rsync;$Check"
+function InstallRclone() {
+        if command -v rclone >/dev/null 2>&1; then
+        Success "Rclone;$Check"
     else
-        echo "Rsync Installing..."
+        echo "Rclone Installing..."
         curl https://rclone.org/install.sh | sudo bash
     fi
 }
@@ -667,7 +667,7 @@ InstallInflect
 InstallHump
 InstallLineProfiler
 InstallAzureCli
-InstallRsync
+InstallRclone
 SetInstallationDate
 
 # if IsFullStackDeveloper; then
