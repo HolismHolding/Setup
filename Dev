@@ -247,11 +247,6 @@ function InstallBashCompletion()
     BashCompletionUpdate
 }
 
-function InstallMitmProxy()
-{
-    Warning "Installing MitmProxy ..."
-}
-
 function InstallInflect()
 {
     pip install --break-system-packages inflect 1>/dev/null 2>&1
@@ -668,7 +663,6 @@ Install safeeyes InstallSafeEye
 # Install warp-cli InstallWarp
 
 InstallBashCompletion
-InstallMitmProxy
 InstallInflect
 InstallHump
 InstallLineProfiler
