@@ -110,6 +110,7 @@ function InstallRemmin() {
 }
 
 function InstallAzureDataStudio() {
+    Warning "Azure Data Studio is being retired. Use VS Code's SQL Server extension instead"
     wget -O /Temp/ads.deb "https://go.microsoft.com/fwlink/?linkid=2251736"
     sudo apt-get install -y /Temp/ads.deb
     rm -f /Temp/ads.deb
