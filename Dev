@@ -671,9 +671,9 @@ InstallAzureCli
 InstallRclone
 SetInstallationDate
 
-# if IsFullStackDeveloper; then
-#     DownloadVsCodeExtensions
-# fi
+if IsFullStackDeveloper; then
+    DownloadVsCodeExtensions
+fi
 
 ConfigureNginx
 RegisterHolismCommands
