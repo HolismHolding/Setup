@@ -296,9 +296,13 @@ InstallWarp() {
 
 function ConfigureNginx()
 {
+    sudo mkdir -p /etc/nginx/conf.d
+    sudo mkdir -p /etc/nginx/includes
+    sudo chmod 777 /etc/nginx/conf.d/
+    sudo chmod 777 /etc/nginx/includes/
     sudo sed -i 's/#\s*server_names_hash_bucket_size\s*\d+;$/	server_names_hash_bucket_size 512;/g' /etc/nginx/nginx.conf
-
-    # Success "Nginx configured"
+    
+    Success "Nginx configured"
 }
 
 function RegisterHolismCommands()
