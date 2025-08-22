@@ -294,6 +294,10 @@ InstallWarp() {
     sudo apt install cloudflare-warp -y
 }
 
+InstallRemmina() {
+    sudo apt install remmina remmina-plugin-vnc
+}
+
 function ConfigureNginx()
 {
     sudo mkdir -p /etc/nginx/conf.d
