@@ -624,6 +624,10 @@ ConfigurePythonCore() {
     Success "Configured Python core path"
 }
 
+EnableDnd() {
+    gsettings set org.gnome.desktop.notifications show-banners false
+}
+
 ConfigureDockerForUser() {
     sudo mkdir -p ~/.docker
     sudo chown -R $(whoami):$(whoami) ~/.docker
@@ -703,6 +707,7 @@ TurnOffAutomaticScreenLock
 SetThousandsSeparatorToCalculator
 SetTimeZone
 ConfigurePythonCore
+EnableDnd
 if [[ -d /HolismHolding/Commands/ConfigVsCode ]]; then
     /HolismHolding/Commands/ConfigVsCode
 fi
