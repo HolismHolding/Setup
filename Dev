@@ -628,6 +628,10 @@ EnableDnd() {
     gsettings set org.gnome.desktop.notifications show-banners false
 }
 
+DisableKineticScrolling() {
+    gsettings set org.gnome.desktop.peripherals.touchpad kinetic-scrolling false
+}
+
 ConfigureDockerForUser() {
     sudo mkdir -p ~/.docker
     sudo chown -R $(whoami):$(whoami) ~/.docker
