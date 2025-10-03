@@ -190,6 +190,12 @@ function InstallDocker() {
     sudo apt-get install -y docker-ce docker-ce-cli containerd.io docker-buildx-plugin docker-compose-plugin
 }
 
+function InstallNode() {
+    Info "Node here"
+    curl -fsSL https://deb.nodesource.com/setup_lts.x | sudo -E bash -
+    sudo apt-get install -y --no-install-recommends nodejs
+}
+
 function InstallRustDesk() {
     wget https://github.com/rustdesk/rustdesk/releases/download/1.2.3-2/rustdesk-1.2.3-2-x86_64.deb -O /Temp/RustDesk.deb
     sudo chmod +x /Temp/RustDesk.deb
