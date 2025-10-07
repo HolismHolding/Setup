@@ -643,6 +643,11 @@ ConfigureDockerForUser() {
     sudo chown -R $(whoami):$(whoami) ~/.docker
 }
 
+ConfigureGitToSignCommitsUsingSsh() {
+    git config --global gpg.format ssh
+    git config --global user.signingkey ~/.ssh/id_ed25519.pub
+}
+
 # SetDeveloperRole
 
 sudo echo ""
