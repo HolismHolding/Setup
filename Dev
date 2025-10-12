@@ -722,6 +722,7 @@ TurnOffAutomaticScreenLock
 SetThousandsSeparatorToCalculator
 SetTimeZone
 ConfigurePythonCore
+ConfigureGitToSignCommitsUsingSsh
 EnableDnd
 if [[ -d /HolismHolding/Commands/ConfigVsCode ]]; then
     /HolismHolding/Commands/ConfigVsCode
