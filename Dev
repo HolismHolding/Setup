@@ -165,6 +165,7 @@ function InstallRclone() {
 function InstallGit() {
     sudo apt-get install -y git
     git config --global init.defaultBranch main
+    git config core.filemode true
 }
 
 function InstallGitHubCli() {
