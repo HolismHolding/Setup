@@ -692,7 +692,7 @@ Install safeeyes InstallSafeEye
 # Install stretchly InstallStrechly
 # Install warp-cli InstallWarp
 
-InstallBashCompletion
+# InstallBashCompletion
 InstallInflect
 InstallHump
 InstallLineProfiler
