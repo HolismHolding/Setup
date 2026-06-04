@@ -452,7 +452,7 @@ function ConfigureKeyboard()
 
 function SetFavoriteApps()
 {
-    gsettings set org.gnome.shell favorite-apps "['org.gnome.Ptyxis.desktop', 'org.gnome.Nautilus.desktop', 'google-chrome.desktop', 'code.desktop', 'org.gnome.gedit.desktop']"
+    gsettings set org.gnome.shell favorite-apps "['org.gnome.Ptyxis.desktop', 'org.gnome.Nautilus.desktop', 'google-chrome.desktop', 'code.desktop', 'org.gnome.TextEditor.desktop']"
 }
 
 function SetChromeAsTheDefaultBrowser()
