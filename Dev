@@ -146,7 +146,7 @@ function InstallMongoCompass()
 
 function InstallAzureCli() {
         if command -v az >/dev/null 2>&1; then
-        Success "Azure CLI;$Check"
+        Success "Azure CLI $Check"
     else
         echo "Azure CLI Installing..."
         curl -sL https://aka.ms/InstallAzureCLIDeb | sudo bash
@@ -155,7 +155,7 @@ function InstallAzureCli() {
 
 function InstallRclone() {
         if command -v rclone >/dev/null 2>&1; then
-        Success "Rclone;$Check"
+        Success "Rclone $Check"
     else
         echo "Rclone Installing..."
         curl https://rclone.org/install.sh | sudo bash
@@ -241,7 +241,7 @@ function InstallBashCompletion()
     # complete -W 'Suggestion1 Suggestion2 Suggestion3' YourCommand
 
     if [ -f /etc/profile.d/bash_completion.sh ]; then
-        Success "BashCompletion;$Check"
+        Success "BashCompletion $Check"
         UpdateBashCompletion
         return;
     fi
@@ -319,7 +319,7 @@ function ConfigureNginx()
 function RegisterHolismCommands()
 {
     if ( grep -nr HolismHolding /etc/bash.bashrc 1>/dev/null ); then
-        Success "Holism commands;$Check"
+        Success "Holism commands $Check"
         return;
     fi
 
@@ -347,7 +347,7 @@ function SetDockerPermissions()
 function DownloadVsCodeExtensions()
 {
     if [ -f /Temp/Extensions/CSharp.vsix ]; then
-        Success "CSharp extension;$Check"
+        Success "CSharp extension $Check"
     else
 
         Info "Downloading C# VS Code extension ... "
@@ -408,7 +408,7 @@ function GiveAccessToRoot()
 function TestGitHubAccess()
 {
     if [[ $(ssh -T git@github.com) == *"You've successfully authenticated"* ]]; then
-        Success "GitHub SSH;$Check"
+        Success "GitHub SSH $Check"
     else
         Error "GitHub SSH not valid"
     fi
@@ -417,7 +417,7 @@ function TestGitHubAccess()
 function AddPersianInputSource()
 {
     if [[ $( gsettings get org.gnome.desktop.input-sources sources | grep ir ) ]]; then
-        Success "Persian;$Check"
+        Success "Persian $Check"
         return;
     fi
 
@@ -431,7 +431,7 @@ function AddPersianInputSource()
 function SetLocaleToEnglishUs()
 {
     if [[ $( locale | grep LANG=en_US.UTF-8 ) ]] && [[ $( gsettings get org.gnome.system.locale region ) == 'en_US.UTF-8' ]]; then
-        Success "US English locale;$Check"
+        Success "US English locale $Check"
         return;
     fi
 
@@ -475,7 +475,7 @@ function DisableWayland()
 function SetAppsToOpenMaximized()
 {
     if ( which devilspie2 1>/dev/null ); then
-        Success "devilspie2;$Check"
+        Success "devilspie2 $Check"
     else
         sudo apt install devilspie2 -y
     fi
@@ -523,7 +523,7 @@ function CloneInfra()
 function PullImages()
 {
     if ( docker image ls | grep site 1>/dev/null ); then
-        Success "holism/site;$Check"
+        Success "holism/site $Check"
     else
         Info "Getting holism/site"
         docker pull holism/site
@@ -532,28 +532,28 @@ function PullImages()
     if IsFullStackDeveloper;
     then
         if ( docker image ls | grep api 1>/dev/null ); then
-            Success "holism/api;$Check"
+            Success "holism/api $Check"
         else
             Info "Getting holism/api"
             docker pull holism/api
         fi
 
         if ( docker image ls | grep mariadb 1>/dev/null ); then
-        Success "mariadb;$Check"
+        Success "mariadb $Check"
         else
             Info "Getting mariadb"
             docker pull mariadb
         fi
 
         if ( docker image ls | grep panel 1>/dev/null ); then
-            Success "holism/panel;$Check"
+            Success "holism/panel $Check"
         else
             Info "Getting holism/panel"
             docker pull holism/panel
         fi
 
         if ( docker image ls | grep adminer 1>/dev/null ); then
-            Success "adminer;$Check"
+            Success "adminer $Check"
         else
             Info "Getting adminer"
             docker pull adminer
@@ -608,7 +608,7 @@ function SetThousandsSeparatorToCalculator()
 function SetTimeZone()
 {
     if ( timedatectl | grep "Asia/Tehran" 1>/dev/null ); then
-        Success "Time Zone;$Check"
+        Success "Time Zone $Check"
         return;
     fi
     timedatectl set-timezone Asia/Tehran
@@ -732,9 +732,6 @@ fi
 
 CloneInfra
 # PullImages
-
-Divide
-
 # SetDockerPermissions
 # Warning "IMPORTANT => RESTART YOUR SYSTEM"
 
