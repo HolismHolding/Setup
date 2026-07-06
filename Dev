@@ -162,6 +162,15 @@ function InstallRclone() {
     fi
 }
 
+function InstallAge() {
+    if command -v age-keygen >/dev/null 2>&1; then
+        Success "Age $Check"
+    else
+        Info "Age Installing..."
+        sudo apt-get install -y age
+    fi
+}
+
 function InstallGit() {
     sudo apt-get install -y git
     git config --global init.defaultBranch main
@@ -698,6 +707,7 @@ InstallHump
 InstallLineProfiler
 InstallAzureCli
 InstallRclone
+InstallAge
 SetInstallationDate
 
 if IsFullStackDeveloper; then
