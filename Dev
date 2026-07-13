@@ -144,6 +144,15 @@ function InstallMongoCompass()
     echo "MongoDB Compass installation complete! You can launch it by typing 'mongodb-compass' or searching for it in your application menu."
 }
 
+InstallAzCopy() {
+    curl -sSL -O https://packages.microsoft.com/config/ubuntu/24.04/packages-microsoft-prod.deb
+    sudo dpkg -i packages-microsoft-prod.deb
+    sudo rm packages-microsoft-prod.deb
+    sudo apt-get update
+    sudo apt-get install -y azcopy || Error "Failed to install AzCopy"
+    Success "Installed AzCopy"
+}
+
 function InstallAzureCli() {
         if command -v az >/dev/null 2>&1; then
         Success "Azure CLI $Check"
@@ -696,6 +705,7 @@ Install safeeyes InstallSafeEye
 InstallInflect
 InstallHump
 InstallLineProfiler
+InstallAzCopy
 InstallAzureCli
 InstallRclone
 SetInstallationDate
